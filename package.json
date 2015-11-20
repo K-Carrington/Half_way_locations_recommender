@@ -1,0 +1,29 @@
+{
+  "name": "half_way_locations_recommender",
+  "version": "1.0.0",
+  "description": "GA WDI Project 3",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omgunis/Half_way_locations_recommender.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omgunis/Half_way_locations_recommender/issues"
+  },
+  "homepage": "https://github.com/omgunis/Half_way_locations_recommender#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "express-ejs-layouts": "^2.0.0",
+    "mongoose": "^4.2.6",
+    "morgan": "^1.6.1",
+    "passport": "^0.3.2"
+  }
+}
