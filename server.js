@@ -6,10 +6,10 @@ var bodyParser  = require('body-parser');
 var port        = process.env.PORT || 3000;
 
 //connect to database
-var db = 'halfway_meet';
-mongoose.connect('mongodb://localhost/' + db, function(err){
+var db = 'mongodb://localhost/halfway_meet';
+mongoose.connect(db, function(err){
   if(err) return console.log('Cannot connect to ' + db + ' database.');
-  console.log('mongodb connected to ' + db + ' database.');
+  console.log('Connected to ' + db + ' database.');
 });
 
 //middleware
