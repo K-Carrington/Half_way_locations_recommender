@@ -1,0 +1,17 @@
+
+Functional Requirements as user stories:
+MVP
+1. As a user I want to read brief easy to understand instructions on how to use the app.
+2. As a user I want to be able to to create an account and log in so that I can use the app and have it remember my information.
+3. As a user I want to be able to log in with FB and have it use my home city location as the default start location so that its more convenient.
+4. As a user I want to be able to change my start location to and from my address or wherever I am or will be so that I can use the app anywhere.
+5. As a user I want to receive up to 2 coffee shop recommendations on possible meeting places with other user(s) that are approximately half way between our locations so that we don’t have to think about it too much.
+6. Be able to read users location as default using Google maps Geo Location api as used in: http://html5demos.com/geo (see code in https://github.com/remy/html5demos/blob/master/demos/geo.html)
+
+OVER AND ABOVE MVP (extras)
+1. Find many more locations
+2. As a user I want to be able to select from the recommendations based on various criteria so that we find the ideal meeting spot.
+3. Be able to adjust the radius of the half way meeting area.
+4. Enable the users to chat via socket.io…
+
+
