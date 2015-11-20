@@ -18,6 +18,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}));
 
+//user routes
+var userRoutes = require('./routes/users.js');
+
+//root route
+app.use('/', userRoutes);
+
+app.get('/', function(){
+  res.render('index');
+});
+
 //static index
 app.use(express.static('public'));
 
