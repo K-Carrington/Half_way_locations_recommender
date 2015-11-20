@@ -3,6 +3,8 @@ var app         = express();
 var logger      = require('morgan');
 var mongoose    = require('mongoose');
 var bodyParser  = require('body-parser');
+var ejs         = require('ejs');
+var ejsLayouts  = require('express-ejs-layouts');
 var port        = process.env.PORT || 3000;
 
 //connect to database
@@ -18,13 +20,17 @@ app.use(logger('dev'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}));
 
+//ejs configuration
+app.set('view engine', 'ejs');
+app.use(ejsLayouts);
+
 //user routes
-var userRoutes = require('./routes/users.js');
+var userRoutes = require('./routes/user_route.js');
 
 //root route
 app.use('/', userRoutes);
 
-app.get('/', function(){
+app.get('/', function(req, res){
   res.render('index');
 });
 
