@@ -1,0 +1,14 @@
+# commands to get set up
+
+# Passport for easy login (via FB or local)
+# JWT for DB security
+# Bcrypt for password security
+npm install  express-session cookie-parser connect-flash passport passport-facebook passport-local bcrypt-nodejs body-parser ejs express-ejs-layouts mongoose morgan passport --save
+
+# elsewhere
+mongod
+# (db name is halfway_meet)
+
+nodemon
+
+#Need to change config/auth.js, settings on FB site and server.js for heroku deploy
