@@ -6,7 +6,7 @@ var userSchema = new mongoose.Schema({
     first_name: String,
     last_name: String,
     //location: String,     //default location
-    email: {type: String, required: true, unique: true},
+    email: {type: String},
     password: String
   },
   facebook: {
