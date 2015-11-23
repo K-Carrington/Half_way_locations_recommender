@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script type="text/javascript">
+
+var map;
+function initMap() {
+  var directionsService = new google.maps.DirectionsService;
+  var directionsDisplay = new google.maps.DirectionsRenderer;
+  var map = new google.maps.Map(document.getElementById('map'), {
+  //  zoom: 7,
+  //  center: {lat: 34.0219, lng: -118.4814}
+  });
+  directionsDisplay.setMap(map);
+
+  //var onChangeHandler = function() {
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+  //};
+  //document.getElementById('start').addEventListener('change', onChangeHandler);
+  //document.getElementById('end').addEventListener('change', onChangeHandler);
+}
+
+//Temp for test
+var start_location1 = "Redondo Beach, CA";
+var start_location2 = "Santa Monica, CA";
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  directionsService.route({
+    origin: start_location1,
+    destination: start_location2,
+    //origin: document.getElementById('start').value,
+    //destination: document.getElementById('end').value,
+    travelMode: google.maps.TravelMode.DRIVING
+  }, function(response, status) {
+    if (status === google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
+  });
+  //TBD How to get distance and time to travel?
+  //Then iterate to find half way time point...
+}
+
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXGfpWXMyD8isPgXt5j7UQ1CJKfqzKwaI&callback=initMap">
+      //TBD for a real production put key in a Heroku ENV var
+    </script>
+  </body>
+</html>

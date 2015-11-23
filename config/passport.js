@@ -31,7 +31,7 @@ passport.use('local-signup', new LocalStrategy({
     newUser.local.first_name = req.body.first_name;
     newUser.local.last_name = req.body.last_name;
     newUser.local.email = req.body.email;
-    //newUser.local.location....  //default location
+    //newUser.start_locations[0].location....  //default location
     newUser.local.password = newUser.generateHash(password);
 
     newUser.save(function(err){
