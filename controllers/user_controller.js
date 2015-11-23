@@ -17,7 +17,8 @@ function update(req, res){
 }
 
 function destroy(req, res){
-  User.findOneAndRemove(req.params.user_id, function(err, user){
+  // req.local.
+  User.findOneAndRemove(req.params.local.email, function(err, user){
     if(err) res.send(err)
     res.json({success: true, message: 'User deleted'})
   })

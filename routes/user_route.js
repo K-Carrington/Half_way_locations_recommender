@@ -39,7 +39,9 @@ userRouter.route('/profile/edit')
   .get(isLoggedIn, function(req, res) {
     res.render('edit', {user: req.user})
   })
-  .put(usersController.update)
+  .put(usersController.update, function(req, res){
+    req.redirect('/profile')
+  })
   .delete(usersController.destroy)
 
 
