@@ -23,15 +23,25 @@ userRouter.route('/signup')
   	failureFlash: true
   }))
 
-userRouter.route('/profile')
+// userRouter.route('/profile')
+//   .get(isLoggedIn, function(req, res) {
+//   	res.render('profile', {user: req.user})
+//   })
+//   .put(usersController.update)
+//   .delete(usersController.destroy)
+
+
+userRouter.get('/profile', isLoggedIn, function(req, res) {
+	res.render('profile', {user: req.user})
+})
+
+userRouter.route('/profile/edit')
   .get(isLoggedIn, function(req, res) {
-  	res.render('profile', {user: req.user})
+    res.render('edit', {user: req.user})
   })
+  .put(usersController.update)
+  .delete(usersController.destroy)
 
-
-// userRouter.get('/profile', isLoggedIn, function(req, res) {
-// 	res.render('profile', {user: req.user})
-// })
 
 // userRouter.get('/profile/edit', isLoggedIn, function(req, res) {
 //   res.render('edit', {user: req.user})
