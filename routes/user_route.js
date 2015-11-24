@@ -39,7 +39,8 @@ userRouter.route('/profile/:email')
   //   req.redirect('/')
   // })
 
-userRouter.get( '/destroy/:id', usersController.destroy)
+// userRouter.post( '/update/:email', usersController.update)
+userRouter.get( '/destroy/:email', usersController.destroy)
 
 // userRouter.get('/profile/edit', isLoggedIn, function(req, res) {
 //   res.render('edit', {user: req.user})
