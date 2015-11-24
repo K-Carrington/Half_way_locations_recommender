@@ -15,11 +15,14 @@ var userSchema = new mongoose.Schema({
   facebook: {
     id: String,
     name: String,
+    first_name: String,
+    last_name: String,
+    hometown: Object,
     token: String,
     email: String
   },
   start_locations: [{location: String, name: String}],
-  meeting_locations: [{location: String, name: String}] 
+  meeting_locations: [{location: String, name: String}]
   //locations : [{ type: Schema.Types.ObjectId, ref: 'Location' }],
   //friends: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 });
