@@ -42,6 +42,11 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
 
+app.use(function(req,res,next){
+  app.locals.loggedIn = req.isAuthenticated()
+  next()
+})
+
 
 //user routes
 var userRoutes = require('./routes/user_route.js');
@@ -56,7 +61,7 @@ app.use(express.static('public'));
 //root route
 app.use('/', userRoutes);
 
-app.get('/', function(req, res){
+app.get('/', function(req, res, next){
   res.render('index');
 });
 
@@ -88,4 +93,3 @@ app.get('/map', function(req, res){
 app.listen(port, function(){
   console.log('Server running on ' + port);
 });
-
