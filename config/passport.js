@@ -1,7 +1,7 @@
 var passport          = require('passport');
 var LocalStrategy     = require('passport-local').Strategy;
 var FacebookStrategy  = require('passport-facebook').Strategy;
-var configAuth      = require('./auth.js');
+var configAuth        = require('./auth.js');
 
 var User = require('../models/user.js');
 
@@ -63,7 +63,7 @@ passport.use(new FacebookStrategy({
   callbackURL: configAuth.facebookAuth.callbackURL,
   profileFields: configAuth.facebookAuth.profileFields
 }, function(token, refreshToken, profile, done){
-  console.log(profile);
+  console.log(profile.name.familyName);
   User.findOne({'facebook.id': profile.id}, function(err, user) {
     if(err) return done(err);
     if(user) {
@@ -72,7 +72,10 @@ passport.use(new FacebookStrategy({
       var newUser = new User();
       newUser.facebook.id = profile.id;
       newUser.facebook.token = token;
+      // newUser.facebook.hometown = profile._json.hometown.name;
       newUser.facebook.name = profile.displayName;
+      newUser.facebook.first_name = profile.name.givenName;
+      newUser.facebook.last_name = profile.name.familyName;
       if (profile.emails)
         newUser.facebook.email = profile.emails[0].value;
 

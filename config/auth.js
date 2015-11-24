@@ -6,6 +6,6 @@ module.exports = {
 		//for FB to send user back to here:
 		// Need to change config/auth.js, settings on FB site
 		'callbackURL': 'http://localhost:3000/auth/facebook/callback',
-		'profileField': ['emails', 'displayName']
+		'profileFields': ['emails', 'displayName', 'first_name', 'last_name', 'hometown']
  	}
 }
