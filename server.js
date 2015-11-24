@@ -77,7 +77,7 @@ app.post('/api/search', function(req, res){
   });
 })
 
-//static index
+//be able to access client assets
 app.use(express.static('views'));
 
 // shows map.html

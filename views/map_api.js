@@ -115,17 +115,18 @@
             return new google.maps.LatLng( p1.lat() + (p2.lat()-p1.lat())*m, p1.lng() + (p2.lng()-p1.lng())*m);
           }
 
-          //marker = createMarker(polyline.GetPointAtDistance(halfDist),"time: "+halfTime,"marker");
+          
           var kmDist = halfDist / 1000.0;
           var miDist = 0.62137 * kmDist;
           var midPoint = polyline.GetPointAtDistance(halfDist);
           //console.log(midPoint.lat());
           //console.log(midPoint.lng());
-          var marker = new google.maps.Marker({
-            position: midPoint,
-            title: miDist + ' miles'
-          });
+          //var marker = new google.maps.Marker({
+          //  position: midPoint,
+          //  title: miDist + ' miles'
+          //});
           marker.setMap(map);
+          marker = createMarker(midPoint,"dist: "+miDist,"marker");
 
           //document.getElementById("total").innerHTML = "total distance is: "+ kmDist + " km<br>total time is: " + (totalTime / 60).toFixed(2) + " minutes";
 
