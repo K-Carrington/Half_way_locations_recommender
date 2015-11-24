@@ -19,6 +19,8 @@ passport.deserializeUser(function(id, done){
 
 //strategy for signup
 passport.use('local-signup', new LocalStrategy({
+  first_nameField: 'first_name',
+  last_nameField: 'last_name',
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallback: true
@@ -78,9 +80,8 @@ passport.use(new FacebookStrategy({
         if(err) throw err;
         return done(null, newUser);
       })
-    } 
+    }
   })
 }))
 
 module.exports = passport;
-

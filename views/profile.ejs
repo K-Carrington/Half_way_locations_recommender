@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <div class="page-header">
 
-    <h1><%= user.local.name || user.facebook.name %></h1>
+    <h1><%= user.local.first_name || user.facebook.name %></h1>
 
     <a href="/logout" class="btn btn-default btn-sm">Logout</a>
 
@@ -15,12 +15,14 @@
             <h3>Locally Stored User</h3>
           <%}%>
             <p>
-                <strong>Name</strong>: <%= user.local.name || user.facebook.name %><br>
+                <strong>First</strong>: <%= user.local.first_name || user.facebook.name %><br>
+                <strong>Last</strong>: <%= user.local.last_name || user.facebook.name %><br>
                 <strong>id</strong>: <%= user._id %><br>
                 <strong>email</strong>: <%= user.local.email || user.facebook.email || "None" %><br>
-                <strong>password</strong>: <%= user.local.password || user.facebook.token %>
+                <strong>password</strong>: <%= user.local.password || user.facebook.token %><br>
+                <a href="/profile/edit" class="btn btn-default btn-sm">Edit</a>
             </p>
-                
+
         </div>
     </div>
 </div>

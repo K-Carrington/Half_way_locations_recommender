@@ -1,6 +1,7 @@
-var express     = require('express');
-var passport    = require('passport');
-var userRouter  = express.Router();
+var express         = require('express');
+var passport        = require('passport');
+var userRouter      = express.Router();
+var usersController = require('../controllers/user_controller.js');
 
 userRouter.route('/login')
   .get(function(req, res){
@@ -22,9 +23,27 @@ userRouter.route('/signup')
   	failureFlash: true
   }))
 
+
 userRouter.get('/profile', isLoggedIn, function(req, res) {
 	res.render('profile', {user: req.user})
 })
+
+userRouter.route('/profile/:email')
+  .get(isLoggedIn, function(req, res) {
+    res.render('edit', {user: req.user})
+  })
+  .put(usersController.update, function(req, res){
+    req.redirect('/profile')
+  })
+  // .delete(usersController.destroy, function(req, res){
+  //   req.redirect('/')
+  // })
+
+userRouter.get( '/destroy/:id', usersController.destroy)
+
+// userRouter.get('/profile/edit', isLoggedIn, function(req, res) {
+//   res.render('edit', {user: req.user})
+// })
 
 //facebook routes
 userRouter.get('/auth/facebook', passport.authenticate('facebook', {
