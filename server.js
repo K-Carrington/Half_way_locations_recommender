@@ -46,6 +46,13 @@ app.use(flash())
 //user routes
 var userRoutes = require('./routes/user_route.js');
 
+//map routes
+//var mapRoutes = require('./routes/map_route.js');
+//app.get('/map', function(req, res) {
+//  res.render('map')
+//})
+app.use(express.static('public'));
+
 //root route
 app.use('/', userRoutes);
 
@@ -54,7 +61,7 @@ app.get('/', function(req, res){
 });
 
 app.post('/api/search', function(req, res){
-  yelp.search({ term: 'bar', limit: 1, ll:req.body.ll})
+  yelp.search({ term: req.body.term, limit: 1, ll:req.body.ll})
     .then(function (data) {
       for (var i = 0; i < data.businesses.length; i++){
         console.log(data.businesses[i].name);
@@ -75,3 +82,4 @@ app.use(express.static('public'));
 app.listen(port, function(){
   console.log('Server running on ' + port);
 });
+

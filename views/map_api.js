@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }
-      #map { height: 100%; }
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script type="text/javascript">
-
-
   var map;
   var polyline = null;
-
 
 function createMarker(latlng, label, html) {
     var contentString = '<b>'+label+'</b><br>'+html;
@@ -38,8 +24,8 @@ function initMap() {
   var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer;
   map = new google.maps.Map(document.getElementById('map'), {
-  //  zoom: 7,
-  //  center: {lat: 34.0219, lng: -118.4814}
+    zoom: 7,
+    center: {lat: 34.0219, lng: -118.4814}
   
   });
 
@@ -52,7 +38,7 @@ function initMap() {
   directionsDisplay.setMap(map);
 
   //var onChangeHandler = function() {
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
+  calculateAndDisplayRoute(directionsService, directionsDisplay);
   //};
   //document.getElementById('start').addEventListener('change', onChangeHandler);
   //document.getElementById('end').addEventListener('change', onChangeHandler);
@@ -61,8 +47,8 @@ function initMap() {
 
 //Temp for test
 var start_location1 = "Redondo Beach, CA";
-var start_location2 = "New York, NY";
-start_location1 = "90277"
+var start_location2 = "Santa Monica, CA";
+start_location1 = "90275"
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   directionsService.route({
@@ -130,16 +116,17 @@ google.maps.Polyline.prototype.GetPointAtDistance = function(metres) {
 }
 
       //marker = createMarker(polyline.GetPointAtDistance(halfDist),"time: "+halfTime,"marker");
+      var kmDist = halfDist / 1000.0;
+      var miDist = 0.62137 * kmDist;
       var midPoint = polyline.GetPointAtDistance(halfDist);
       console.log(midPoint.lat());
       console.log(midPoint.lng());
       var marker = new google.maps.Marker({
         position: midPoint,
-        title: 'Hello World!'
+        title: miDist + ' miles'
       });
       marker.setMap(map);
 
-      kmDist = halfDist / 1000.
       //document.getElementById("total").innerHTML = "total distance is: "+ kmDist + " km<br>total time is: " + (totalTime / 60).toFixed(2) + " minutes";
 
       //TBD send api request to server yelp interface
@@ -154,23 +141,14 @@ google.maps.Polyline.prototype.GetPointAtDistance = function(metres) {
           term: "coffee" // TBD //from UI
         },
         success: function(data){
-        console.log("Data returned from Yelp I/F:");
-        console.log(data);
-
-     },
-     dataType: 'json'
-   });
+          console.log("Data returned from Yelp I/F:");
+          console.log(data);
+        },
+        dataType: 'json'
+      });
       
     } else {
       window.alert('Directions request failed due to ' + status);
     }
   });
 }
-
-    </script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXGfpWXMyD8isPgXt5j7UQ1CJKfqzKwaI&callback=initMap">
-      //TBD for a real production put key in a Heroku ENV var
-    </script>
-  </body>
-</html>
