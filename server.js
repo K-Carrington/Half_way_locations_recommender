@@ -72,6 +72,11 @@ app.post('/api/search', function(req, res){
 //static index
 app.use(express.static('public'));
 
+// shows map.html
+app.get('/map', function(req, res){
+  res.sendFile(__dirname + '/views/map.html')
+})
+
 app.listen(port, function(){
   console.log('Server running on ' + port);
 });
