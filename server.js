@@ -61,7 +61,8 @@ app.get('/', function(req, res){
 });
 
 app.post('/api/search', function(req, res){
-  yelp.search({ term: req.body.term, limit: 1, ll:req.body.ll})
+
+  yelp.search({term: req.body.term, limit: 1, ll: req.body.ll})
     .then(function (data) {
       for (var i = 0; i < data.businesses.length; i++){
         console.log(data.businesses[i].name);
@@ -77,7 +78,12 @@ app.post('/api/search', function(req, res){
 })
 
 //static index
-app.use(express.static('public'));
+app.use(express.static('views'));
+
+// shows map.html
+app.get('/map', function(req, res){
+  res.sendFile(__dirname + '/views/map_api.html')
+})
 
 app.listen(port, function(){
   console.log('Server running on ' + port);
