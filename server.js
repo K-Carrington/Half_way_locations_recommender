@@ -10,6 +10,7 @@ var	cookieParser   = require('cookie-parser');
 var	session        = require('express-session');
 var	passport       = require('passport');
 var	passportConfig = require('./config/passport.js');
+var yelp           = require('./config/yelp.js');
 var port           = process.env.PORT || 3000;
 
 
@@ -51,6 +52,22 @@ app.use('/', userRoutes);
 app.get('/', function(req, res){
   res.render('index');
 });
+
+app.post('/api/search', function(req, res){
+  yelp.search({ term: 'bar', limit: 1, ll:req.body.ll})
+    .then(function (data) {
+      for (var i = 0; i < data.businesses.length; i++){
+        console.log(data.businesses[i].name);
+        console.log(data.businesses[i].url);
+        console.log(data.businesses[i].location);
+      }
+      console.log(data.businesses)
+      res.json(data.businesses)
+    })
+  .catch(function (err) {
+    console.error(err);
+  });
+})
 
 //static index
 app.use(express.static('public'));
