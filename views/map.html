@@ -145,6 +145,21 @@ google.maps.Polyline.prototype.GetPointAtDistance = function(metres) {
       //TBD send api request to server yelp interface
       //Send: location, type, number_of_desired_results; 
       //Recieve: array of names, yelp_urls, locations) to find meeting locations that are a certain radius from the calculated mid point.
+      //POST request, get stuff back in success section
+      $.ajax({
+        url: 'api/search',
+        method: 'POST',
+        data: {
+          ll: midPoint.lat() + ", " + midPoint.lng(),
+          term: "coffee" // TBD //from UI
+        },
+        success: function(data){
+        console.log("Data returned from Yelp I/F:");
+        console.log(data);
+
+     },
+     dataType: 'json'
+   });
       
     } else {
       window.alert('Directions request failed due to ' + status);
