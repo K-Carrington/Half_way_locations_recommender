@@ -1,8 +1,8 @@
 <div class="col-sm-6 col-sm-offset-3">
     <h1>Account Information</h1>
-    <form action="/profile/edit" method="put">
+    <form action="/update" method="post">
       <div class="form-group">
-        <label>First name</label>
+        <label>First name <%=user._id%></label>
         <input type="text" class="form-control" name="first_name">
       </div>
 
@@ -20,8 +20,9 @@
           <label>Password</label>
           <input type="password" class="form-control" name="password">
       </div>
+      <input type="hidden" name="id" value='<%=user._id%>'>
 
-      <button type="submit" class="btn btn-warning btn-lg"><a href="/profile/">Save</a></button>
+      <button type="submit" class="btn btn-warning btn-lg">Save</button>
       <br>
       <br>
       <button type="submit" class="btn btn-warning btn-lg"><a href="/destroy/<%=user.local.email%>">Delete Account</a></button>

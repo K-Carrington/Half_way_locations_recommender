@@ -38,8 +38,13 @@ userRouter.route('/profile/:email')
   // .delete(usersController.destroy, function(req, res){
   //   req.redirect('/')
   // })
-
-userRouter.get( '/destroy/:id', usersController.destroy)
+userRouter.get( '/update', function( req, res ) {
+  console.log("Yeah hooo!", req.body )
+  res.json( "It's in there")
+} )
+// userRouter.get( '/edit/:id', usersController.edit );
+userRouter.post( '/update', usersController.update)
+userRouter.get( '/destroy/:email', usersController.destroy)
 
 // userRouter.get('/profile/edit', isLoggedIn, function(req, res) {
 //   res.render('edit', {user: req.user})
