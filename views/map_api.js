@@ -14,7 +14,8 @@
     infowindow = new google.maps.InfoWindow();
 
     google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(contentString+"<br>"+marker.getPosition().toUrlValue(6)); 
+      //infowindow.setContent(contentString+"<br>"+marker.getPosition().toUrlValue(6)); 
+      infowindow.setContent(contentString); 
       infowindow.open(map,marker);
     });
     return marker;
@@ -36,23 +37,24 @@
 
     directionsDisplay.setMap(map);
 
+    //TBD Temp for test
+    var start_location1 = "Redondo Beach, CA";
+    var start_location2 = "Santa Monica, CA";
+    start_location1 = "90275"
+  // TBD trigger on button
   //var onChangeHandler = function() {
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
+    calculateAndDisplayRoute(directionsService, directionsDisplay,
+      start_location1, start_location2);
   //};
   //document.getElementById('start').addEventListener('change', onChangeHandler);
   //document.getElementById('end').addEventListener('change', onChangeHandler);
   
   }
 
-  //TBD Temp for test
-  var start_location1 = "Redondo Beach, CA";
-  var start_location2 = "Santa Monica, CA";
-  start_location1 = "90275"
-
-  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  function calculateAndDisplayRoute(directionsService, directionsDisplay, start1, start2) {
     directionsService.route({
-      origin: start_location1,
-      destination: start_location2,
+      origin: start1,
+      destination: start2,
       //origin: document.getElementById('start').value,
       //destination: document.getElementById('end').value,
       travelMode: google.maps.TravelMode.DRIVING
@@ -66,7 +68,7 @@
           var legs = response.routes[0].legs;
           marker = createMarker(legs[0].start_location,"midpoint","","green");
 
-          console.log(legs)
+          //console.log(legs)
           var distance = legs[0].distance.value; //meters
           var totalTime = legs[0].duration.value; //seconds
           console.log("DISTmeters:"+distance+", "+"DURseconds:"+totalTime);
@@ -90,8 +92,9 @@
           var halfDist = distance / 2;
           var halfTime = totalTime / 2; 
 
-          // === A method which returns a google.maps.LatLng of a point a given distance along the path ===
-          // === Returns null if the path is shorter than the specified distance ===
+          // Add a method to PolyLine to return a google.maps.LatLng of a point 
+          // at a given distance along the path
+          // Returns null if the path is shorter than the specified distance
           google.maps.Polyline.prototype.GetPointAtDistance = function(metres) {
             // some awkward special cases
             if (metres == 0) return this.getPath().getAt(0);
@@ -125,8 +128,9 @@
           //  position: midPoint,
           //  title: miDist + ' miles'
           //});
-          marker.setMap(map);
-          marker = createMarker(midPoint,"dist: "+miDist,"marker");
+          //marker.setMap(map);
+          //marker = createMarker(midPoint,"dist: "+miDist,"<a href=\"http://www.cnn.com\">CNN</a>");
+          //console.log(midPoint);
 
           //document.getElementById("total").innerHTML = "total distance is: "+ kmDist + " km<br>total time is: " + (totalTime / 60).toFixed(2) + " minutes";
 
@@ -143,7 +147,20 @@
             },
             success: function(data){
               console.log("Data returned from Yelp I/F:");
-              console.log(data);
+              for (var i = 0; i < data.length; i++) {
+            //console.log(data[i].location.coordinate.latitude)
+            //console.log(data[i].location.coordinate.longitude)
+            var yelpPoint = new google.maps.LatLng( 
+              data[i].location.coordinate.latitude, 
+              data[i].location.coordinate.longitude);
+               
+                 marker = createMarker(
+                  yelpPoint,
+                  data[i].name+"<br>"+data[i].location.display_address
+                  +"<br>"+"<img src=\""+data[i].rating_img_url_small+"\">"
+                  +"<br>"+data[i].display_phone,
+                  "<a href=\""+data[i].mobile_url+"\">Yelp</a>");
+               }
             },
             dataType: 'json'
           });
