@@ -23,27 +23,23 @@ userRouter.route('/signup')
   	failureFlash: true
   }))
 
-// userRouter.route('/profile')
-//   .get(isLoggedIn, function(req, res) {
-//   	res.render('profile', {user: req.user})
-//   })
-//   .put(usersController.update)
-//   .delete(usersController.destroy)
-
 
 userRouter.get('/profile', isLoggedIn, function(req, res) {
 	res.render('profile', {user: req.user})
 })
 
-userRouter.route('/profile/edit')
+userRouter.route('/profile/:email')
   .get(isLoggedIn, function(req, res) {
     res.render('edit', {user: req.user})
   })
   .put(usersController.update, function(req, res){
     req.redirect('/profile')
   })
-  .delete(usersController.destroy)
+  // .delete(usersController.destroy, function(req, res){
+  //   req.redirect('/')
+  // })
 
+userRouter.get( '/destroy/:id', usersController.destroy)
 
 // userRouter.get('/profile/edit', isLoggedIn, function(req, res) {
 //   res.render('edit', {user: req.user})

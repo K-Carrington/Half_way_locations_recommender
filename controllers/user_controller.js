@@ -17,11 +17,12 @@ function update(req, res){
 }
 
 function destroy(req, res){
-  // req.local.
-  User.findOneAndRemove(req.params.local.email, function(err, user){
+  User.findOneAndRemove(req.params.email, function(err, user){
     if(err) res.send(err)
-    res.json({success: true, message: 'User deleted'})
+    res.redirect('/')
+    // res.json({success: true, message: 'User deleted'})
   })
+
 }
 
 module.exports = {
