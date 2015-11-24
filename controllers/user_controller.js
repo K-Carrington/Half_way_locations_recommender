@@ -10,6 +10,12 @@ var User = require('../models/user.js');
 //   })
 // }
 
+// function show(req, res){
+//   User.find({}, function(err, user){
+//     if(err)
+//   })
+// }
+
 function update(req, res){
   console.log('User being updated: ', req.body )
   User.findById(req.body.id, function(err, user){
@@ -43,7 +49,6 @@ function destroy(req, res){
 }
 
 module.exports = {
-  // edit: edit,
   update: update,
   destroy: destroy
 }
