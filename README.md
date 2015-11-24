@@ -18,14 +18,14 @@ MVP
 
 2. As a user I want to be able to to create an account and log in so that I can use the app and have it remember my information.
 
-3. As a user I want to be able to enter both my location and another location so that the app can find a midpoint and recommend places to meet in that area.
+3. As a user I want to be able to enter a place type, my location and another location so that the app can find a midpoint and recommended places to meet in that area.
 
-4. As a user I want to be able to change my start location to and from my address or wherever I am or will be so that I can use the app anywhere.
+4. As a user I want to be able to change my start locations to wherever I want so that I can use the app anywhere.
 
-5. As a user I want to receive up to 2 coffee shop recommendations on possible meeting places with other user(s) that are approximately half way between our locations so that we don’t have to think about it too much.
+5. As a user I want to receive up to 2 recommendations on possible meeting places with other user(s) that are approximately half way between our locations so that we don’t have to think about it too much.
 
 
-OVER AND ABOVE MVP (extras)
+OVER AND ABOVE thenMVP (extra backlog to to later, or if time exists during project week)
 1. As a user I want to be able to find more than 2 locations so that I have more choices.
 
 2. As a user I want to be able to select from the recommendations based on various criteria so that we find the ideal meeting spot.
