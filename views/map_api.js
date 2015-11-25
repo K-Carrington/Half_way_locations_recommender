@@ -55,29 +55,21 @@
 
     directionsDisplay.setMap(map);
 
-    //TBD Temp for test
-    var start_location1 = "Redondo Beach, CA"; id='#userLocation'
-    var start_location2 = "Santa Monica, CA";
-    start_location1 = "90275"
-    place_of_interest = "Coffee"
-
-    $('#mapSearchButton').click(function() {
+    // trigger Display route, get halfway yelp results on button press
+    $('#map-search-form').on('submit', function(evt) {
+      evt.preventDefault();
       var start_location1 = $('#userLocation').val();
       var start_location2 = $('#friendLocation').val();
       var place_of_interest = $('#placeOfInterest').val();
       console.log("in mapSearchButton callback")
       console.log("User loc: " + start_location1)
       console.log("Fr loc: " + start_location2)
-      console.log("Term: " + place_of_interest)
-    // TBD trigger on button press
-    //var onChangeHandler = function() {
+      console.log("Term: " + place_of_interest)    
+    
       calculateAndDisplayRoute(directionsService, directionsDisplay,
         start_location1, start_location2, place_of_interest);
-   //};
-    //document.getElementById('start').addEventListener('change', onChangeHandler);
-    //document.getElementById('end').addEventListener('change', onChangeHandler);
-    });
-  }
+    }); 
+  }  
 
   function calculateAndDisplayRoute(directionsService, directionsDisplay,
     start1, start2, place_of_interest) {
@@ -90,10 +82,7 @@
       }, function(response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
           polyline.setPath([]);
-
           directionsDisplay.setDirections(response);
-          //var summaryPanel = document.getElementById("directions_panel");
-          //summaryPanel.innerHTML = "";
           var legs = response.routes[0].legs;
           //marker = createMarker(legs[0].start_location,"midpoint","","green");
 
@@ -108,8 +97,6 @@
           //marker.setMap(map);
           //marker = createMarker(midPoint,"dist: "+miDist,"<a href=\"http://www.cnn.com\">CNN</a>");
           //console.log(midPoint);
-
-          //document.getElementById("total").innerHTML = "total distance is: "+ kmDist + " km<br>total time is: " + (totalTime / 60).toFixed(2) + " minutes";
 
           //
           // Send api request to server yelp interface
@@ -157,7 +144,6 @@
 
   // Return mid-point from trip leg (list of segent points)
   function findHalfWayPoint(leg) {
-   //s var bounds = new google.maps.LatLngBounds();
     //Set up poly line along route based on segments (turn/merge/etc points in the route)
     //console.log(legs)
     //A leg is the whole route to a way-point or to the end
@@ -173,7 +159,6 @@
     var nextSegment = steps[i].path;
       for (var k=0;k<nextSegment.length;k++) {
         polyline.getPath().push(nextSegment[k]);
-        //    bounds.extend(nextSegment[k]);
       }
     }
     polyline.setMap(map);
