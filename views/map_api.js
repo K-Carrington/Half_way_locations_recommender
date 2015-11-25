@@ -166,6 +166,7 @@
         polyline.getPath().push(nextSegment[k]);
       }
     }
+    polyline.setDraggable(true);
     polyline.setMap(map);
 
     // Add a method to the PolyLine class(object constructor) to return
