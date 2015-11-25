@@ -1,5 +1,7 @@
   var map;
   var polyline = null;
+  var yelpMarkers = [];
+  var userLoggedIn = false;
 
   function createMarker(latlng, label, html) {
     var contentString = '<b>'+label+'</b><br>'+html;
@@ -22,10 +24,26 @@
   }
 
   function initMap() {
+    //TBD First see if user is logged in
+    //If so get default start 1 location...
+    //if not put up zoomed out map of US
+    
+    $.ajax({
+    url: 'api/user',
+    method: 'GET',
+     success: function(data){
+      console.log("User data:");
+      console.log(data);
+      console.log(data.loggedIn);
+      userLoggedIn = data.loggedIn;
+      //TBD get user login/location info
+     }
+   });
+
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
     map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 7,
+      zoom: 7,  // TBD 4 if user not logged in (and skip calling Route)
       center: {lat: 34.0219, lng: -118.4814}
     });
 
@@ -38,20 +56,31 @@
     directionsDisplay.setMap(map);
 
     //TBD Temp for test
-    var start_location1 = "Redondo Beach, CA";
+    var start_location1 = "Redondo Beach, CA"; id='#userLocation'
     var start_location2 = "Santa Monica, CA";
     start_location1 = "90275"
-  // TBD trigger on button
-  //var onChangeHandler = function() {
-    calculateAndDisplayRoute(directionsService, directionsDisplay,
-      start_location1, start_location2);
-  //};
-  //document.getElementById('start').addEventListener('change', onChangeHandler);
-  //document.getElementById('end').addEventListener('change', onChangeHandler);
-  
-  }
+    place_of_interest = "Coffee"
 
-  function calculateAndDisplayRoute(directionsService, directionsDisplay, start1, start2) {
+    $('#mapSearchButton').click(function() {
+      var start_location1 = $('#userLocation').val();
+      var start_location2 = $('#friendLocation').val();
+      var place_of_interest = $('#placeOfInterest').val();
+      console.log("in mapSearchButton callback")
+      console.log("User loc: " + start_location1)
+      console.log("Fr loc: " + start_location2)
+      console.log("Term: " + place_of_interest)    
+    // TBD trigger on button press
+    //var onChangeHandler = function() { 
+      calculateAndDisplayRoute(directionsService, directionsDisplay,
+        start_location1, start_location2, place_of_interest);
+   //};
+    //document.getElementById('start').addEventListener('change', onChangeHandler);
+    //document.getElementById('end').addEventListener('change', onChangeHandler);
+    }); 
+  }  
+
+  function calculateAndDisplayRoute(directionsService, directionsDisplay, 
+    start1, start2, place_of_interest) {
     directionsService.route({
       origin: start1,
       destination: start2,
@@ -61,67 +90,15 @@
       }, function(response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
           polyline.setPath([]);
-          var bounds = new google.maps.LatLngBounds();
+          
           directionsDisplay.setDirections(response);
           //var summaryPanel = document.getElementById("directions_panel");
           //summaryPanel.innerHTML = "";
           var legs = response.routes[0].legs;
-          marker = createMarker(legs[0].start_location,"midpoint","","green");
+          //marker = createMarker(legs[0].start_location,"midpoint","","green");
 
-          //console.log(legs)
-          var distance = legs[0].distance.value; //meters
-          var totalTime = legs[0].duration.value; //seconds
-          console.log("DISTmeters:"+distance+", "+"DURseconds:"+totalTime);
-          // iterate to find half way time point...
-      
-          steps = legs[0].steps;
-          for (var i = 0; i < steps.length; i++) {
-            // console.log(steps[i].duration.value);
-            // console.log(steps[i].end_location.lat());
-            // console.log(steps[i].end_location.lng());
-            var nextSegment = steps[i].path;
-            for (var k=0;k<nextSegment.length;k++) {
-              polyline.getPath().push(nextSegment[k]);
-              bounds.extend(nextSegment[k]);
-            }
-          }
-
-          polyline.setMap(map);
-    
-          //Compute half way
-          var halfDist = distance / 2;
-          var halfTime = totalTime / 2; 
-
-          // Add a method to PolyLine to return a google.maps.LatLng of a point 
-          // at a given distance along the path
-          // Returns null if the path is shorter than the specified distance
-          google.maps.Polyline.prototype.GetPointAtDistance = function(metres) {
-            // some awkward special cases
-            if (metres == 0) return this.getPath().getAt(0);
-            if (metres < 0) return null;
-            if (this.getPath().getLength() < 2) return null;
-            var dist=0;
-            var olddist=0;
-            for (var i=1; (i < this.getPath().getLength() && dist < metres); i++) {
-              olddist = dist;
-              dist += google.maps.geometry.spherical.computeDistanceBetween(
-                this.getPath().getAt(i),
-                this.getPath().getAt(i-1)
-              );
-            }
-            if (dist < metres) {
-              return null;
-            }
-            var p1= this.getPath().getAt(i-2);
-            var p2= this.getPath().getAt(i-1);
-            var m = (metres-olddist)/(dist-olddist);
-            return new google.maps.LatLng( p1.lat() + (p2.lat()-p1.lat())*m, p1.lng() + (p2.lng()-p1.lng())*m);
-          }
-
-          
-          var kmDist = halfDist / 1000.0;
-          var miDist = 0.62137 * kmDist;
-          var midPoint = polyline.GetPointAtDistance(halfDist);
+          var midPoint = findHalfWayPoint(legs[0]);
+       
           //console.log(midPoint.lat());
           //console.log(midPoint.lng());
           //var marker = new google.maps.Marker({
@@ -134,32 +111,39 @@
 
           //document.getElementById("total").innerHTML = "total distance is: "+ kmDist + " km<br>total time is: " + (totalTime / 60).toFixed(2) + " minutes";
 
-          //TBD send api request to server yelp interface
-          //Send: location, type, number_of_desired_results; 
-          //Recieve: array of names, yelp_urls, locations) to find meeting locations that are a certain radius from the calculated mid point.
-          //POST request, get stuff back in success section
+          //
+          // Send api request to server yelp interface
+          // Send: location and type(search term of request); 
+          // Recieve: array of names, yelp_urls, locations) to find meeting locations that are a certain radius from the calculated mid point.
+          // (POST request, get stuff back in success section)
+          //
+          //First remove old markers
+          for(var i=0; i<yelpMarkers.length; i++){
+            yelpMarkers[i].setMap(null);
+          }
           $.ajax({
             url: 'api/search',
             method: 'POST',
             data: {
               ll: midPoint.lat() + ", " + midPoint.lng(),
-              term: "coffee" // TBD //from UI
+              term: place_of_interest //from UI
             },
             success: function(data){
               console.log("Data returned from Yelp I/F:");
               for (var i = 0; i < data.length; i++) {
-            //console.log(data[i].location.coordinate.latitude)
-            //console.log(data[i].location.coordinate.longitude)
-            var yelpPoint = new google.maps.LatLng( 
-              data[i].location.coordinate.latitude, 
-              data[i].location.coordinate.longitude);
+                //console.log(data[i].location.coordinate.latitude)
+                //console.log(data[i].location.coordinate.longitude)
+                var yelpPoint = new google.maps.LatLng( 
+                  data[i].location.coordinate.latitude, 
+                  data[i].location.coordinate.longitude);
                
-                 marker = createMarker(
-                  yelpPoint,
-                  data[i].name+"<br>"+data[i].location.display_address
-                  +"<br>"+"<img src=\""+data[i].rating_img_url_small+"\">"
-                  +"<br>"+data[i].display_phone,
-                  "<a href=\""+data[i].mobile_url+"\">Yelp</a>");
+                  marker = createMarker(
+                    yelpPoint,
+                    data[i].name+"<br>"+data[i].location.display_address
+                    +"<br>"+"<img src=\""+data[i].rating_img_url_small+"\">"
+                    +"<br>"+data[i].display_phone,
+                    "<a href=\""+data[i].mobile_url+"\">Yelp</a>");
+                  yelpMarkers.push(marker);
                }
             },
             dataType: 'json'
@@ -167,5 +151,62 @@
         } else {
           window.alert('Directions request failed due to ' + status);
         }
-    });
+      }
+    );
+  }
+
+  // Return mid-point from trip leg (list of segent points)
+  function findHalfWayPoint(leg) {
+   //s var bounds = new google.maps.LatLngBounds();
+    //Set up poly line along route based on segments (turn/merge/etc points in the route)
+    //console.log(legs)
+    //A leg is the whole route to a way-point or to the end
+    //(We are not allowing way points, so there's only one leg)
+    var distance = leg.distance.value; //meters
+    var totalTime = leg.duration.value; //seconds
+    console.log("DISTmeters:"+distance+", "+"DURseconds:"+totalTime);
+    steps = leg.steps;
+    for (var i = 0; i < steps.length; i++) {
+    // console.log(steps[i].duration.value);
+    // console.log(steps[i].end_location.lat());
+    // console.log(steps[i].end_location.lng());
+    var nextSegment = steps[i].path;
+      for (var k=0;k<nextSegment.length;k++) {
+        polyline.getPath().push(nextSegment[k]);
+        //    bounds.extend(nextSegment[k]);
+      }
+    }
+    polyline.setMap(map);
+
+    // Add a method to the PolyLine class(object constructor) to return 
+    // a google.maps.LatLng of a point at a given distance along the path
+    // Returns null if the path is shorter than the specified distance
+    google.maps.Polyline.prototype.GetPointAtDistance = function(metres) {
+      // some awkward special cases
+      if (metres == 0) return this.getPath().getAt(0);
+      if (metres < 0) return null;
+      if (this.getPath().getLength() < 2) return null;
+      var dist=0;
+      var olddist=0;
+      for (var i=1; (i < this.getPath().getLength() && dist < metres); i++) {
+        olddist = dist;
+        dist += google.maps.geometry.spherical.computeDistanceBetween(
+          this.getPath().getAt(i),
+          this.getPath().getAt(i-1)
+        );
+      }
+      if (dist < metres) {
+        return null;
+      }
+      var p1= this.getPath().getAt(i-2);
+      var p2= this.getPath().getAt(i-1);
+      var m = (metres-olddist)/(dist-olddist);
+      return new google.maps.LatLng( p1.lat() + (p2.lat()-p1.lat())*m, p1.lng() + (p2.lng()-p1.lng())*m);
+    }
+
+    //Compute half way
+    var halfDist = distance / 2; //in meters
+    var halfTime = totalTime / 2; 
+    var miDist = 0.62137 * (halfDist / 1000.0);
+    return polyline.GetPointAtDistance(halfDist);
   }
