@@ -23,6 +23,7 @@ passport.use('local-signup', new LocalStrategy({
   last_nameField: 'last_name',
   usernameField: 'email',
   passwordField: 'password',
+  defaultLocationField: 'defaultLocation',
   passReqToCallback: true
 }, function(req, email, password, done){
   User.findOne({'local.email': email}, function(err, user){
@@ -33,6 +34,7 @@ passport.use('local-signup', new LocalStrategy({
     newUser.local.first_name = req.body.first_name;
     newUser.local.last_name = req.body.last_name;
     newUser.local.email = req.body.email;
+    newUser.local.defaultLocation = req.body.defaultLocation;
     //newUser.start_locations[0].location....  //default location
     newUser.local.password = newUser.generateHash(password);
 
