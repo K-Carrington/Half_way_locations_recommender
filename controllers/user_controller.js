@@ -19,17 +19,19 @@ var User = require('../models/user.js');
 function update(req, res){
   console.log('User being updated: ', req.body )
   User.findById(req.body.id, function(err, user){
-    console.log("YAY", user);
     if(err) res.send(err);
 
+    console.log("YAY", user);
     if(req.body.first_name)
       user.local.first_name = req.body.first_name;
     if(req.body.last_name)
       user.local.last_name = req.body.last_name;
     if(req.body.email)
       user.local.email = req.body.email;
-    if(req.body.defaultLocation)
+    if(req.body.defaultLocation) {
       user.local.defaultLocation = req.body.defaultLocation;
+      user.start_locations.push({location: req.body.defaultLocation, name: "home"});
+    }
 
     user.save(function(err){
       if (err) res.send(err);

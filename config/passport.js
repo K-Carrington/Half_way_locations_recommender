@@ -5,8 +5,15 @@ var configAuth        = require('./auth.js');
 
 var User = require('../models/user.js');
 
+var curr_user_id;
+
+function ret_user_id(){
+  return curr_user_id;
+}
+
 //changing into a string that can be stored as a cookie
 passport.serializeUser(function(user, done){
+  curr_user_id = user.id; //to be able to pass out for 
   done(null, user.id);
 });
 
@@ -89,4 +96,4 @@ passport.use(new FacebookStrategy({
   })
 }))
 
-module.exports = passport;
+module.exports = {passport, ret_user_id};
