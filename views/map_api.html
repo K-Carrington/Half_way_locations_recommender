@@ -1,66 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Authentication</title>
+  <title>Map</title>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }
-      #map {
-        height: 400px;
-      }
-      #form-map{
-        margin-top:250px;
-      }
-    </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css"></link>
 </head>
 <body>
-  <div class="container-fluid">
-    <div class="row" id="form-map">
-      <div class="col-md-5">
-        <form class="form-horizontal">
-          <div class="form-group">
-            <div class="col-sm-12">
-              <input type="text" class="form-control" id="userLocation" placeholder="Your Location">
-            </div>
-          </div>
-          <br>
-          <div class="form-group">
-            <div class="col-sm-12">
-              <input type="text" class="form-control" id="friendLocation" placeholder="Friend's Location">
-            </div>
-          </div>
-          <label>Place of Interest</label>
-          <select class="form-control" id="placeOfInterest">
-            <div class="col-sm-12">
-              <optgroup label = "Place of Interest">
-                <option>Coffee</option>
-                <option>Bar</option>
-                <option>Restaurant</option>
-                <option>Mall</option>
-                <option>Movie Theater</option>
-            </optgroup>
-            </div>
-          </select>
-          <br>
-          <br>
-          <div class="form-group">
-            <div class="col-lg-offset-5 col-lg-10">
-              <button type="submit" class="btn btn-warning btn-lg" id="mapSearchButton">Submit</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="col-md-7">
-        <div id="map"></div>
+
+  <nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <i class="fa fa-bars fa-2x"></i>
+        </div>
       </div>
     </div>
+  </nav>
+
+  <div class="form">
+    <div class="form-horizontal mapForm">
+      <input type="text" class="form-control" id="userLocation" placeholder="Your Location">
+      <input type="text" class="form-control" id="friendLocation" placeholder="Friend's Location">
+      <select class="form-control" id="placeOfInterest">
+        <option label = "Place of Interest"></option>
+        <option>Coffee</option>
+        <option>Bar</option>
+        <option>Restaurant</option>
+        <option>Mall</option>
+        <option>Movie Theater</option>
+      </select>
+      <button type="submit" class="btn btn-warning btn-lg" id="mapSearchButton">Submit</button>
+    </div>
   </div>
-    <script type="text/javascript" src="map_api.js"></script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXGfpWXMyD8isPgXt5j7UQ1CJKfqzKwaI&callback=initMap&language=en">
-      //TBD for a real production put key in a Heroku ENV var
-    </script>
+
+  <div id="map"></div>
+
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="map_api.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXGfpWXMyD8isPgXt5j7UQ1CJKfqzKwaI&callback=initMap&language=en">
+      <!-- //TBD for a real production put key in a Heroku ENV var -->
+  </script>
 </body>
 </html>
