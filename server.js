@@ -69,7 +69,7 @@ app.get('/', function(req, res, next){
 
 app.post('/api/search', function(req, res){
 
-  yelp.search({term: req.body.term, limit: 2, ll: req.body.ll})
+  yelp.search({term: req.body.term, limit: 10, ll: req.body.ll})
     .then(function (data) {
       for (var i = 0; i < data.businesses.length; i++){
         console.log(data.businesses[i].name);
