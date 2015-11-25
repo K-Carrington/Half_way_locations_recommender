@@ -14,11 +14,9 @@
         zIndex: Math.round(latlng.lat()*-100000)<<5
     });
     marker.myname = label;
-
     infowindow = new google.maps.InfoWindow();
 
     google.maps.event.addListener(marker, 'click', function() {
-      //infowindow.setContent(contentString+"<br>"+marker.getPosition().toUrlValue(6));
       infowindow.setContent(contentString);
       infowindow.open(map,marker);
     });
@@ -27,7 +25,7 @@
 
   function initMap() {
     //See if user is logged in
-    //If so get default start 1 location...
+    //If so get default start locations
     //if not put up zoomed out map of US
     $.ajax({
     url: 'api/user',
@@ -45,7 +43,9 @@
    });
 
     var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer;
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+      draggable: true;
+    });
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 7,  // TBD 4 if user not logged in (and skip calling Route)
       center: {lat: 34.0219, lng: -118.4814}
