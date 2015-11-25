@@ -15,7 +15,7 @@ var port           = process.env.PORT || 3000;
 
 
 //connect to database
-var db = 'mongodb://localhost/halfway_meet';
+var db = 'mongodb://eunice:123456@ds057954.mongolab.com:57954/halfway_meet';
 mongoose.connect(db, function(err){
   if(err) return console.log('Cannot connect to ' + db + ' database.');
   console.log('Connected to ' + db + ' database.');
