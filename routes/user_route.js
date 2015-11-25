@@ -23,7 +23,6 @@ userRouter.route('/signup')
   	failureFlash: true
   }))
 
-
 userRouter.get('/profile', isLoggedIn, function(req, res) {
 	res.render('profile', {user: req.user})
 })
