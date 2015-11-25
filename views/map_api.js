@@ -55,13 +55,9 @@
 
     directionsDisplay.setMap(map);
 
-    //TBD Temp for test
-    var start_location1 = "Redondo Beach, CA"; id='#userLocation'
-    var start_location2 = "Santa Monica, CA";
-    start_location1 = "90275"
-    place_of_interest = "Coffee"
-
-    $('#mapSearchButton').click(function() {
+    // trigger Display route, get halfway yelp results on button press
+    $('#map-search-form').on('submit', function(evt) {
+      evt.preventDefault();
       var start_location1 = $('#userLocation').val();
       var start_location2 = $('#friendLocation').val();
       var place_of_interest = $('#placeOfInterest').val();
@@ -69,13 +65,9 @@
       console.log("User loc: " + start_location1)
       console.log("Fr loc: " + start_location2)
       console.log("Term: " + place_of_interest)    
-    // TBD trigger on button press
-    //var onChangeHandler = function() { 
+    
       calculateAndDisplayRoute(directionsService, directionsDisplay,
         start_location1, start_location2, place_of_interest);
-   //};
-    //document.getElementById('start').addEventListener('change', onChangeHandler);
-    //document.getElementById('end').addEventListener('change', onChangeHandler);
     }); 
   }  
 
