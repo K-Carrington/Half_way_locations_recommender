@@ -12,13 +12,13 @@ nav {
   user-select: none;
 }
 .form {
-  padding: 30px 10px 0 10px;
+  /*padding: 30px 10px 0 10px;
   width: 360px;
   height: 100%;
   position: absolute;
   right: 100%;
   transition: all ease .5s;
-  background: #333;
+  background: #333;*/
 }
 .hello {
   margin-right: -359px;
