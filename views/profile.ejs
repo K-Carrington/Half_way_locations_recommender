@@ -19,7 +19,11 @@
                 <strong>Last</strong>: <%= user.local.last_name || user.facebook.last_name %><br>
                 <strong>Email</strong>: <%= user.local.email || user.facebook.email || "None" %><br>
                 <strong>Default Location</strong>: <%=  user.local.defaultLocation %><br>
-
+                <strong>Locations</strong>:
+                  <% for(var i = 0; i < user.start_locations.length; i++) {%>
+                    <%= user.start_locations[i].location %>
+                    <%= user.start_locations[i].name %>
+                  <% } %>
                 <a href="/profile/edit" class="btn btn-default btn-sm">Edit</a>
             </p>
 

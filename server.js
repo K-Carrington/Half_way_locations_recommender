@@ -112,7 +112,7 @@ app.get('/map', function(req, res){
   // j_cryp = true;
   console.log("Rendering map_api.html****")
   res.sendFile(__dirname + '/views/map_api.html')
-}) 
+})
 
 app.listen(port, function(){
   console.log('Server running on ' + port);
