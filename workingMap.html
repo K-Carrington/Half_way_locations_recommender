@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>fuckin map</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  	<link rel="stylesheet"   type="text/css" href="style.css"></link>
+  </head>
+  <body>
+
+    <nav>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <i class="fa fa-bars fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="form">
+      <div class="form-horizontal mapForm">
+        <input type="text" class="form-control" id="userLocation" placeholder="Your Location">
+        <input type="text" class="form-control" id="friendLocation" placeholder="Friend's Location">
+        <select class="form-control" id="placeOfInterest">
+          <option label = "Place of Interest"></option>
+          <option>Coffee</option>
+          <option>Bar</option>
+          <option>Restaurant</option>
+          <option>Mall</option>
+          <option>Movie Theater</option>
+        </select>
+        <button type="submit" class="btn btn-warning btn-lg" id="mapSearchButton">Submit</button>
+      </div>
+    </div>
+    <div id="map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26458.044534837933!2d-118.48512470432595!3d34.01165033331545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bb20a2d81629%3A0xae3061fcae4626a7!2sSanta+Monica%2C+CA+90405!5e0!3m2!1sen!2sus!4v1448423599168" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="map_api.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXGfpWXMyD8isPgXt5j7UQ1CJKfqzKwaI&callback=initMap">
+    //TBD for a real production put key in a Heroku ENV var
+    </script>
+  </body>
+</html>

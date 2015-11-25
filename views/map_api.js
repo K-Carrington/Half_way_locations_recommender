@@ -69,12 +69,13 @@
       console.log("in mapSearchButton callback")
       console.log("User loc: " + start_location1)
       console.log("Fr loc: " + start_location2)
-      console.log("Term: " + place_of_interest)    
-    
+      console.log("Term: " + place_of_interest)
+
       calculateAndDisplayRoute(directionsService, directionsDisplay,
         start_location1, start_location2, place_of_interest);
-    }); 
-  }  
+    });
+
+  }
 
   function calculateAndDisplayRoute(directionsService, directionsDisplay,
     start1, start2, place_of_interest) {
@@ -202,12 +203,12 @@
     return polyline.GetPointAtDistance(halfDist);
   }
 
-//button for side bar
-$( "body" ).on( "click", ".fa-bars", function () {
-    console.log('button clicked')
-  if ( $( ".form" ).hasClass( "hello" ) ) {
-    $( ".form" ).removeClass( "hello" )
-  } else {
-    $( ".form" ).addClass( "hello" )
-  }
-})
+  //button for side bar
+  $( "body" ).on( "click", ".fa-bars", function () {
+      console.log('button clicked')
+    if ( $( ".form" ).hasClass( "showBar" ) ) {
+      $( ".form" ).removeClass( "showBar" )
+    } else {
+      $( ".form" ).addClass( "showBar" )
+    }
+  })
