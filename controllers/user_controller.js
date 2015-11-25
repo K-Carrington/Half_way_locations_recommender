@@ -28,6 +28,8 @@ function update(req, res){
       user.local.last_name = req.body.last_name;
     if(req.body.email)
       user.local.email = req.body.email;
+    if(req.body.defaultLocation)
+      user.local.defaultLocation = req.body.defaultLocation;
 
     user.save(function(err){
       if (err) res.send(err);

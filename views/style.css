@@ -1,0 +1,40 @@
+body {
+  overflow-x: hidden;
+}
+nav {
+  padding: 30px;
+  background: #333;
+  color: #fff;
+}
+.fa-bars {
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.form {
+  padding: 30px 10px 0 10px;
+  width: 360px;
+  height: 100%;
+  position: absolute;
+  right: 100%;
+  transition: all ease .5s;
+  background: #333;
+}
+.hello {
+  margin-right: -359px;
+}
+input, button, select {
+  margin-bottom: 15px;
+  width: 340px;
+  margin-left: 5px;
+}
+button[ type = submit ] {
+  background: #333;
+  color: #fff;
+  border-radius: 0;
+  padding: 7px;
+}
+#map, #map iframe {
+  height: 100vh;
+  width: 100vw;
+}
