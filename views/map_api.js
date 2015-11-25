@@ -16,8 +16,8 @@
     infowindow = new google.maps.InfoWindow();
 
     google.maps.event.addListener(marker, 'click', function() {
-      //infowindow.setContent(contentString+"<br>"+marker.getPosition().toUrlValue(6)); 
-      infowindow.setContent(contentString); 
+      //infowindow.setContent(contentString+"<br>"+marker.getPosition().toUrlValue(6));
+      infowindow.setContent(contentString);
       infowindow.open(map,marker);
     });
     return marker;
@@ -27,7 +27,7 @@
     //TBD First see if user is logged in
     //If so get default start 1 location...
     //if not put up zoomed out map of US
-    
+
     $.ajax({
     url: 'api/user',
     method: 'GET',
@@ -68,18 +68,18 @@
       console.log("in mapSearchButton callback")
       console.log("User loc: " + start_location1)
       console.log("Fr loc: " + start_location2)
-      console.log("Term: " + place_of_interest)    
+      console.log("Term: " + place_of_interest)
     // TBD trigger on button press
-    //var onChangeHandler = function() { 
+    //var onChangeHandler = function() {
       calculateAndDisplayRoute(directionsService, directionsDisplay,
         start_location1, start_location2, place_of_interest);
    //};
     //document.getElementById('start').addEventListener('change', onChangeHandler);
     //document.getElementById('end').addEventListener('change', onChangeHandler);
-    }); 
-  }  
+    });
+  }
 
-  function calculateAndDisplayRoute(directionsService, directionsDisplay, 
+  function calculateAndDisplayRoute(directionsService, directionsDisplay,
     start1, start2, place_of_interest) {
     directionsService.route({
       origin: start1,
@@ -90,7 +90,7 @@
       }, function(response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
           polyline.setPath([]);
-          
+
           directionsDisplay.setDirections(response);
           //var summaryPanel = document.getElementById("directions_panel");
           //summaryPanel.innerHTML = "";
@@ -98,7 +98,7 @@
           //marker = createMarker(legs[0].start_location,"midpoint","","green");
 
           var midPoint = findHalfWayPoint(legs[0]);
-       
+
           //console.log(midPoint.lat());
           //console.log(midPoint.lng());
           //var marker = new google.maps.Marker({
@@ -113,7 +113,7 @@
 
           //
           // Send api request to server yelp interface
-          // Send: location and type(search term of request); 
+          // Send: location and type(search term of request);
           // Recieve: array of names, yelp_urls, locations) to find meeting locations that are a certain radius from the calculated mid point.
           // (POST request, get stuff back in success section)
           //
@@ -133,10 +133,10 @@
               for (var i = 0; i < data.length; i++) {
                 //console.log(data[i].location.coordinate.latitude)
                 //console.log(data[i].location.coordinate.longitude)
-                var yelpPoint = new google.maps.LatLng( 
-                  data[i].location.coordinate.latitude, 
+                var yelpPoint = new google.maps.LatLng(
+                  data[i].location.coordinate.latitude,
                   data[i].location.coordinate.longitude);
-               
+
                   marker = createMarker(
                     yelpPoint,
                     data[i].name+"<br>"+data[i].location.display_address
@@ -178,7 +178,7 @@
     }
     polyline.setMap(map);
 
-    // Add a method to the PolyLine class(object constructor) to return 
+    // Add a method to the PolyLine class(object constructor) to return
     // a google.maps.LatLng of a point at a given distance along the path
     // Returns null if the path is shorter than the specified distance
     google.maps.Polyline.prototype.GetPointAtDistance = function(metres) {
@@ -206,7 +206,17 @@
 
     //Compute half way
     var halfDist = distance / 2; //in meters
-    var halfTime = totalTime / 2; 
+    var halfTime = totalTime / 2;
     var miDist = 0.62137 * (halfDist / 1000.0);
     return polyline.GetPointAtDistance(halfDist);
   }
+
+//button for side bar
+$( "body" ).on( "click", ".fa-bars", function () {
+    console.log('button clicked')
+  if ( $( ".form" ).hasClass( "hello" ) ) {
+    $( ".form" ).removeClass( "hello" )
+  } else {
+    $( ".form" ).addClass( "hello" )
+  }
+})
