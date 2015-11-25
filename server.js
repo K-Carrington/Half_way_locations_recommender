@@ -106,14 +106,13 @@ app.post('/api/user', function(req, res){
 //be able to access client assets
 app.use(express.static('views'));
 
-// shows map.html
-
+// shows map.html (seems to crash node more when logged in)
 app.get('/map', function(req, res){
   if (j_cryp) return; //this callback was getting called too much
   j_cryp = true;
-  console.log("Rendering map_api****")
+  console.log("Rendering map_api.html****")
   res.sendFile(__dirname + '/views/map_api.html')
-})
+}) 
 
 app.listen(port, function(){
   console.log('Server running on ' + port);
