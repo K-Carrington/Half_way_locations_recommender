@@ -1,6 +1,7 @@
   var map;
   var polyline = null;
   var yelpMarkers = [];
+  var userLoggedIn = false;
 
   function createMarker(latlng, label, html) {
     var contentString = '<b>'+label+'</b><br>'+html;
@@ -33,6 +34,8 @@
      success: function(data){
       console.log("User data:");
       console.log(data);
+      console.log(data.loggedIn);
+      userLoggedIn = data.loggedIn;
       //TBD get user login/location info
      }
    });
