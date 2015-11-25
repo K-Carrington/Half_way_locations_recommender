@@ -56,8 +56,9 @@
     directionsDisplay.setMap(map);
 
     // trigger Display route, get halfway yelp results on button press
-    $('#map-search-form').on('submit', function(evt) {
-      evt.preventDefault();
+    //$('#map-search-form').on('submit', function(evt) {
+    $('#mapSearchButton').click(function(evt) {
+      //evt.preventDefault();
       var start_location1 = $('#userLocation').val();
       var start_location2 = $('#friendLocation').val();
       var place_of_interest = $('#placeOfInterest').val();
