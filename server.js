@@ -14,8 +14,10 @@ var yelp           = require('./config/yelp.js');
 var port           = process.env.PORT || 3000;
 
 
-//connect to database
-var db = 'mongodb://localhost/halfway_meet';
+//connect to local database
+// var db = 'mongodb://localhost/halfway_meet';
+//connect to mongolab
+var db = 'mongodb://eunice:123456@ds057954.mongolab.com:57954/halfway_meet';
 mongoose.connect(db, function(err){
   if(err) return console.log('Cannot connect to ' + db + ' database.');
   console.log('Connected to ' + db + ' database.');
@@ -69,6 +71,7 @@ app.get('/', function(req, res, next){
 });
 
 app.post('/api/search', function(req, res){
+
   yelp.search({term: req.body.term, limit: 10, ll: req.body.ll})
     .then(function (data) {
       for (var i = 0; i < data.businesses.length; i++){
