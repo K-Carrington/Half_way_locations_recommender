@@ -128,7 +128,7 @@ app.use(express.static('views'));
 // shows map.html (seems to crash node more when logged in)
 app.get('/map', function(req, res){
   res.sendFile(__dirname + '/views/map_api.html')
-}) 
+})
 
 app.listen(port, function(){
   console.log('Server running on ' + port);
