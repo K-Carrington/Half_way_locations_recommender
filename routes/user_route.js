@@ -34,20 +34,19 @@ userRouter.route('/profile/:email')
   .put(usersController.update, function(req, res){
     req.redirect('/profile')
   })
-  // .delete(usersController.destroy, function(req, res){
-  //   req.redirect('/')
-  // })
+
+userRouter.route('/locations')
+  .get(function(req, res){
+    res.render('locations', {user: req.user})
+  })
+
 userRouter.get( '/update', function( req, res ) {
   console.log("Yeah hooo!", req.body )
   res.json( "It's in there")
 } )
-// userRouter.get( '/edit/:id', usersController.edit );
+
 userRouter.post( '/update', usersController.update)
 userRouter.get( '/destroy/:email', usersController.destroy)
-
-// userRouter.get('/profile/edit', isLoggedIn, function(req, res) {
-//   res.render('edit', {user: req.user})
-// })
 
 //facebook routes
 userRouter.get('/auth/facebook', passport.authenticate('facebook', {

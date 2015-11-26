@@ -35,7 +35,7 @@ button[ type = submit ] {
   border-radius: 0;
   padding: 7px;
 }
-#map, #map iframe {
+#map {
   height: 100vh;
   width: 100vw;
 }
