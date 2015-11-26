@@ -24,7 +24,7 @@
     });
 
     yelpMarkers.push(marker);
-                  
+
     $('#'+buttonId).click(function() {
       console.log(buttonId + ' clicked!')
     });
@@ -56,15 +56,15 @@
         $("#not-logged-in").show();
         $("#logged-in").hide();
         console.log("user not logged in");
-      }     
+      }
      }
    });
 
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
     map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 7,  // TBD 4 if user not logged in (and skip calling Route)
-      center: {lat: 34.0219, lng: -118.4814}
+      zoom: 4,  // TBD 4 if user not logged in (and skip calling Route)
+      center: {lat: 36.0219, lng: -95.4814}
     });
 
     polyline = new google.maps.Polyline({
@@ -87,7 +87,7 @@
       }
       else {
         start_location1 = $('#userLocationN').val();
-        start_location2 = $('#friendLocationN').val();  
+        start_location2 = $('#friendLocationN').val();
       }
       var place_of_interest = $('#placeOfInterest').val();
       console.log("in mapSearchButton callback")
@@ -163,7 +163,7 @@
                     +'<br>'+'<img src="'+data[i].rating_img_url_small+'">'
                     +'<br>'+data[i].display_phone,
                     '<a href="'+data[i].mobile_url+'">Yelp</a>'
-                  );   
+                  );
                }
             },
             dataType: 'json'
