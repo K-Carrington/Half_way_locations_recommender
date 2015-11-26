@@ -41,6 +41,15 @@
       console.log(start_locations);
       console.log(meeting_locations);
       //TBD get user login/location info
+      if (userLoggedIn){
+        $("#test").hide();
+        $("#test2").show();
+        console.log("user logged in");
+      } else {
+        $("#test").show();
+        $("#test2").hide();
+        console.log("user not logged in");
+      }     
      }
    });
 
