@@ -111,7 +111,7 @@ app.get('/map', function(req, res){
   // if (j_cryp) return; //this callback was getting called too much
   // j_cryp = true;
   console.log("Rendering map_api.html****")
-  res.render('map_api')
+  res.sendFile(__dirname + '/views/map_api.html')
 })
 
 app.listen(port, function(){
