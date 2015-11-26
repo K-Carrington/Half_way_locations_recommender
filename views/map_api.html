@@ -18,11 +18,17 @@
       </div>
     </div>
   </nav>
-  
+
   <div class="form">
     <div class="form-horizontal mapForm" id="map-search-form">
-      <input type="text" class="form-control" id="userLocation" placeholder="Your Location">
-      <input type="text" class="form-control" id="friendLocation" placeholder="Friend's Location">
+      <div id="not-logged-in">
+        <input type="text" class="form-control" id="userLocationN" placeholder="Your Location">
+        <input type="text" class="form-control" id="friendLocationN" placeholder="Friend's Location">
+      </div>
+      <div id="logged-in">
+        <input type="text" class="form-control" id="userLocationL" placeholder="Enter Your Location/See Your Previous Locations">
+        <input type="text" class="form-control" id="friendLocationL" placeholder="Friend's Location">
+      </div>
       <select class="form-control" id="placeOfInterest">
         <option label = "Place of Interest"></option>
         <option>Coffee</option>
@@ -34,6 +40,7 @@
       <button class="btn btn-warning btn-lg" id="mapSearchButton">Submit</button>
     </div>
   </div>
+
   <div id="map"></div>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

@@ -90,14 +90,11 @@ app.get('/api/user', function(req, res){
   var User = require('./models/user.js');
   var data;
   var user_id = passportConfig.ret_user_id();
-  console.log("1* user_id " + user_id)
 
   if (user_id) {
-    console.log("2* Finding userid = " + user_id)
     User.findById(user_id, function(err, user){
       if(err) res.send(err);
-      console.log("3* Found user!")
-      console.log(user)
+      //console.log("3* Found user!")
       data = {
         loggedIn: app.locals.loggedIn,
         start_locations: user.start_locations,
