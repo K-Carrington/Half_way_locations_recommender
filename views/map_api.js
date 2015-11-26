@@ -149,8 +149,8 @@
             success: function(data){
               console.log("Data returned from Yelp I/F:");
               for (var i = 0; i < data.length; i++) {
-                //console.log(data[i].location.coordinate.latitude)
-                //console.log(data[i].location.coordinate.longitude)
+                console.log(data[i].location.coordinate.latitude)
+                console.log(data[i].location.coordinate.longitude)
                 var yelpPoint = new google.maps.LatLng(
                   data[i].location.coordinate.latitude,
                   data[i].location.coordinate.longitude);
