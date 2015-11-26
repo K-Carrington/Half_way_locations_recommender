@@ -5,8 +5,10 @@
   var start_locations = [];
   var meeting_locations = [];
 
-  function createMarker(latlng, label, html) {
-    var contentString = '<b>'+label+'</b><br>'+html;
+  function createMarker(buttonId, latlng, label, html) {
+    console.log("Creating marker, button id = " + buttonId)
+    var contentString = '<b>'+label+'</b><br>'+html
+    +'<br><button class="btn btn-success btn-xs" id="'+buttonId+'">Save</button>';
     var marker = new google.maps.Marker({
         position: latlng,
         map: map,
@@ -14,20 +16,25 @@
         zIndex: Math.round(latlng.lat()*-100000)<<5
     });
     marker.myname = label;
-
     infowindow = new google.maps.InfoWindow();
 
     google.maps.event.addListener(marker, 'click', function() {
-      //infowindow.setContent(contentString+"<br>"+marker.getPosition().toUrlValue(6));
       infowindow.setContent(contentString);
       infowindow.open(map,marker);
     });
+
+    yelpMarkers.push(marker);
+                  
+    $('#'+buttonId).click(function() {
+      console.log(buttonId + ' clicked!')
+    });
+
     return marker;
   }
 
   function initMap() {
     //See if user is logged in
-    //If so get default start 1 location...
+    //If so get default start locations
     //if not put up zoomed out map of US
     $.ajax({
     url: 'api/user',
@@ -42,12 +49,12 @@
       console.log(meeting_locations);
       //TBD get user login/location info
       if (userLoggedIn){
-        $("#test").hide();
-        $("#test2").show();
+        $("#not-logged-in").hide();
+        $("#logged-in").show();
         console.log("user logged in");
       } else {
-        $("#test").show();
-        $("#test2").hide();
+        $("#not-logged-in").show();
+        $("#logged-in").hide();
         console.log("user not logged in");
       }     
      }
@@ -72,8 +79,16 @@
     //$('#map-search-form').on('submit', function(evt) {
     $('#mapSearchButton').click(function() {
       //evt.preventDefault();
-      var start_location1 = $('#userLocation').val();
-      var start_location2 = $('#friendLocation').val();
+      var start_location1;
+      var start_location2;
+      if (userLoggedIn) {
+        start_location1 = $('#userLocationL').val();
+        start_location2 = $('#friendLocationL').val();
+      }
+      else {
+        start_location1 = $('#userLocationN').val();
+        start_location2 = $('#friendLocationN').val();  
+      }
       var place_of_interest = $('#placeOfInterest').val();
       console.log("in mapSearchButton callback")
       console.log("User loc: " + start_location1)
@@ -98,6 +113,7 @@
         if (status === google.maps.DirectionsStatus.OK) {
           polyline.setPath([]);
           directionsDisplay.setDirections(response);
+          //directionsDisplay.setDraggable(true);
           var legs = response.routes[0].legs;
           //marker = createMarker(legs[0].start_location,"midpoint","","green");
 
@@ -139,13 +155,15 @@
                   data[i].location.coordinate.latitude,
                   data[i].location.coordinate.longitude);
 
+                var markerButtonId = 'loc-save-btn' + i;
+
                   marker = createMarker(
-                    yelpPoint,
-                    data[i].name+"<br>"+data[i].location.display_address
-                    +"<br>"+"<img src=\""+data[i].rating_img_url_small+"\">"
-                    +"<br>"+data[i].display_phone,
-                    "<a href=\""+data[i].mobile_url+"\">Yelp</a>");
-                  yelpMarkers.push(marker);
+                    markerButtonId, yelpPoint,
+                    data[i].name+'<br>'+data[i].location.display_address
+                    +'<br>'+'<img src="'+data[i].rating_img_url_small+'">'
+                    +'<br>'+data[i].display_phone,
+                    '<a href="'+data[i].mobile_url+'">Yelp</a>'
+                  );   
                }
             },
             dataType: 'json'
@@ -176,7 +194,7 @@
         polyline.getPath().push(nextSegment[k]);
       }
     }
-    polyline.setDraggable(true);
+    //polyline.setDraggable(true);
     polyline.setMap(map);
 
     // Add a method to the PolyLine class(object constructor) to return
