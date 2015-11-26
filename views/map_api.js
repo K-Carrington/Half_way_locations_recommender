@@ -43,9 +43,7 @@
    });
 
     var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer({
-      draggable: true;
-    });
+    var directionsDisplay = new google.maps.DirectionsRenderer;
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 7,  // TBD 4 if user not logged in (and skip calling Route)
       center: {lat: 34.0219, lng: -118.4814}
@@ -89,6 +87,7 @@
         if (status === google.maps.DirectionsStatus.OK) {
           polyline.setPath([]);
           directionsDisplay.setDirections(response);
+          //directionsDisplay.setDraggable(true);
           var legs = response.routes[0].legs;
           //marker = createMarker(legs[0].start_location,"midpoint","","green");
 
@@ -134,9 +133,13 @@
                     yelpPoint,
                     data[i].name+"<br>"+data[i].location.display_address
                     +"<br>"+"<img src=\""+data[i].rating_img_url_small+"\">"
-                    +"<br>"+data[i].display_phone,
-                    "<a href=\""+data[i].mobile_url+"\">Yelp</a>");
+                    +'<br>'+data[i].display_phone,
+                    '<a href="'+data[i].mobile_url+'">Yelp</a><br>'
+                    +'<button class="btn btn-success btn-xs" id="loc-save-btn'+i+'">Save</button>');
                   yelpMarkers.push(marker);
+                  $('#loc-save-btn'+i).click(function() {
+                    console.log('loc-save-btn clicked!')
+                  });
                }
             },
             dataType: 'json'
