@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <div class="page-header">
 
-    <h1>Welcome <%= user.local.first_name || user.facebook.first_name %>!</h1>
+    <h1>Hey <%= user.local.first_name || user.facebook.first_name %>!</h1>
 
-    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    <!-- <a href="/logout" class="btn btn-default btn-sm">Logout</a> -->
 
 </div>
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
-        <div class="well">
-          <% if(user.facebook.id) { %>
-            <h3>Facebook User</h3>
-          <% } else { %>
-            <h3>Locally Stored User</h3>
-          <%}%>
-            <p>
-                <strong>First</strong>: <%= user.local.first_name || user.facebook.first_name %><br>
-                <strong>Last</strong>: <%= user.local.last_name || user.facebook.last_name %><br>
-                <strong>Email</strong>: <%= user.local.email || user.facebook.email || "None" %><br>
-                <strong>Default Location</strong>: <%=  user.local.defaultLocation %><br>
-                <strong>Locations</strong>:
-                  <% for(var i = 0; i < user.start_locations.length; i++) {%>
-                    <%= user.start_locations[i].location %>
-                    <%= user.start_locations[i].name %>
-                  <% } %>
-                <a href="/profile/edit" class="btn btn-default btn-sm">Edit</a>
-            </p>
+  <div class="col-sm-2 col-sm-offset-1"><br><br>
+    <a href="/profile">Profile</a><br><br>
+    <a href="/locations">Saved Locations</a><br><br>
+    <a href="/profile/edit">Edit Account Information</a>
+  </div>
+  <div class="col-sm-6">
+    <div class="well">
+      <!-- <% if(user.facebook.id) { %>
+        <h3>Facebook User</h3>
+      <% } else { %>
+        <h3>Locally Stored User</h3>
+      <%}%> -->
+      <h3>Profile</h3>
+        <p>
+          <strong>First</strong>: <%= user.local.first_name || user.facebook.first_name %><br>
+          <strong>Last</strong>: <%= user.local.last_name || user.facebook.last_name %><br>
+          <strong>Email</strong>: <%= user.local.email || user.facebook.email || "None" %><br>
+          <strong>Default Location</strong>: <%=  user.local.defaultLocation %><br>
+          <strong>Locations</strong>:
+            <% for(var i = 0; i < user.start_locations.length; i++) {%>
+              <%= user.start_locations[i].location %>
+              <%= user.start_locations[i].name %>
+            <% } %>
+        </p>
 
-        </div>
     </div>
+  </div>
 </div>
