@@ -46,9 +46,10 @@ app.use(flash())
 
 app.use(function(req,res,next){
   app.locals.loggedIn = req.isAuthenticated()
+  //console.log("****req = ")
+  //console.log(req)
   next()
 })
-
 
 //user routes
 var userRoutes = require('./routes/user_route.js');
@@ -60,18 +61,14 @@ var userRoutes = require('./routes/user_route.js');
 //})
 app.use(express.static('public'));
 
-var j_cryp = false; //TBD temp/bad/very temporary workaround for
-//                  map page re-rendering via below map route
 //root route
 app.use('/', userRoutes);
 
 app.get('/', function(req, res, next){
-  j_cryp = false;
   res.render('index');
 });
 
 app.post('/api/search', function(req, res){
-
   yelp.search({term: req.body.term, limit: 10, ll: req.body.ll})
     .then(function (data) {
       for (var i = 0; i < data.businesses.length; i++){
@@ -90,11 +87,33 @@ app.post('/api/search', function(req, res){
 
 //User AJAX Routes:
 app.get('/api/user', function(req, res){
-  var data = {
-    loggedIn: app.locals.loggedIn,
-    defaultLocations: ["90275"] //TBDEunice to fill in(array of start locations)
-  };
-  res.json(data);
+  var User = require('./models/user.js');
+  var data;
+  var user_id = passportConfig.ret_user_id();
+  console.log("1* user_id " + user_id)
+
+  if (user_id) {
+    console.log("2* Finding userid = " + user_id)
+    User.findById(user_id, function(err, user){
+      if(err) res.send(err);
+      console.log("3* Found user!")
+      console.log(user)
+      data = {
+        loggedIn: app.locals.loggedIn,
+        start_locations: user.start_locations,
+        meeting_locations: user.meeting_locations
+      };
+      res.json(data);
+    });
+  }
+  else {
+    data = {
+      loggedIn: app.locals.loggedIn,
+      start_locations: [],
+      meeting_locations: []
+    };
+    res.json(data);
+  }
 });
 app.post('/api/user', function(req, res){
   //TBD
@@ -108,9 +127,6 @@ app.use(express.static('views'));
 
 // shows map.html (seems to crash node more when logged in)
 app.get('/map', function(req, res){
-  // if (j_cryp) return; //this callback was getting called too much
-  // j_cryp = true;
-  console.log("Rendering map_api.html****")
   res.sendFile(__dirname + '/views/map_api.html')
 })
 

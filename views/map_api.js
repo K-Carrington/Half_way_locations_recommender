@@ -2,6 +2,8 @@
   var polyline = null;
   var yelpMarkers = [];
   var userLoggedIn = false;
+  var start_locations = [];
+  var meeting_locations = [];
 
   function createMarker(latlng, label, html) {
     var contentString = '<b>'+label+'</b><br>'+html;
@@ -24,19 +26,30 @@
   }
 
   function initMap() {
-    //TBD First see if user is logged in
+    //See if user is logged in
     //If so get default start 1 location...
     //if not put up zoomed out map of US
-
     $.ajax({
     url: 'api/user',
     method: 'GET',
      success: function(data){
       console.log("User data:");
-      console.log(data);
       console.log(data.loggedIn);
       userLoggedIn = data.loggedIn;
+      start_locations = data.start_locations;
+      meeting_locations = data.meeting_locations;
+      console.log(start_locations);
+      console.log(meeting_locations);
       //TBD get user login/location info
+      if (userLoggedIn){
+        $("#test").hide();
+        $("#test2").show();
+        console.log("user logged in");
+      } else {
+        $("#test").show();
+        $("#test2").hide();
+        console.log("user not logged in");
+      }     
      }
    });
 
@@ -56,8 +69,9 @@
     directionsDisplay.setMap(map);
 
     // trigger Display route, get halfway yelp results on button press
-    $('#map-search-form').on('submit', function(evt) {
-      evt.preventDefault();
+    //$('#map-search-form').on('submit', function(evt) {
+    $('#mapSearchButton').click(function() {
+      //evt.preventDefault();
       var start_location1 = $('#userLocation').val();
       var start_location2 = $('#friendLocation').val();
       var place_of_interest = $('#placeOfInterest').val();
@@ -162,6 +176,7 @@
         polyline.getPath().push(nextSegment[k]);
       }
     }
+    polyline.setDraggable(true);
     polyline.setMap(map);
 
     // Add a method to the PolyLine class(object constructor) to return
