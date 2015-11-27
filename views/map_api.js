@@ -142,31 +142,53 @@
               for (var i = 0; i < data.length; i++) {
                 //console.log(data[i].location.coordinate.latitude)
                 //console.log(data[i].location.coordinate.longitude)
+
+                //display yelp data as markers on the map
                 var yelpPoint = new google.maps.LatLng(
                   data[i].location.coordinate.latitude,
                   data[i].location.coordinate.longitude);
 
-                var buttonId = 'loc-save-btn' + i;
                 contentString = '<br>'+data[i].location.display_address
                   +'<br>'+'<img src="'+data[i].rating_img_url_small+'">'
                   +'<br>'+data[i].display_phone+'<br>'
                   +'<a href="'+data[i].mobile_url+'">Yelp</a>'
+
+                save_loc = data[i].location.display_address;
+                save_name = data[i].name;
 
                 data[i].name = (i+1)+'. '+data[i].name;
 
                 marker = createMarker(yelpPoint, data[i].name, contentString);
                 yelpMarkers.push(marker);
 
+                //also display yelp data on side window
+                var buttonId = 'loc-save-btn' + i;
                 var saveButton = "";
-                // put yelp info (with button if logged in) in yelpResults div
                 if (userLoggedIn) {
-                  saveButton = '<br><button class="btn btn-success btn-xs" id="'+buttonId+'">Save to my Meeting Locations</button>'
-                  $('#'+buttonId).click(function() {
-                    console.log(buttonId + ' clicked!')
-                  });
+                  saveButton = '<br><button class="btn btn-success btn-xs" id="'
+                    +buttonId+'">Save to my Meeting Locations</button>';
                 }
                 $('#yelpResults'+i).html(data[i].name+contentString+saveButton);
-              }
+
+                // put yelp info (with button if logged in) in yelpResults div
+                if (userLoggedIn) {
+                  $('#'+buttonId).click({loc: save_loc, name: save_name}, function(event) {
+                    console.log(this.id + ' clicked! loc = ' + event.data.loc);
+                    $.ajax({
+                      url: 'api/add_loc',
+                      method: 'POST',
+                      data: {
+                        m_loc: event.data.loc,
+                        name: event.data.name
+                      },
+                      success: function(data){
+                        console.log('SUCCESS adding selected meeting loc to DB!')
+                      },
+                      dataType: 'json'
+                    });
+                  });
+                } //if (userLoggedIn)
+              } //for loop
             },
             dataType: 'json'
           });
