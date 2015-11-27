@@ -6,36 +6,24 @@ This uses Node.js, Express, Google Maps and Yelp APIs, Mongo/Mongoose, Ajax, EJS
 
 Team:
 
-All members worked with Node/Express, Mongo/Mongoose, HTML/CSS/Bootstrap and EJS.
-
-Additionally:
-
 Ken Carrington: Project lead - Google Maps API, Yelp JSON data and Ajax
 
 Eunice Chang: Facebook and Passport Authentication
 
 Nick Hendren: Yelp API
 
+All members worked with Node/Express, Mongo/Mongoose, HTML/CSS/Bootstrap and EJS.
+
+
 RESTful APIs:
 
-User login:
-
-  Create, update and delete user
+User login: Create, update and delete user
   
-Yelp:
-  Get (search for) data
+Yelp: Get (search for) data
   
-Google Maps:
-
-  Requested map and route
+Google Maps: Requested map and route
   
-Own App's RESTful APIs (from server to client):
-
-  Get user data from DB (isLogged in, selected start and meeting locations)
-  
-  Get Yelp data via a POST request (to pass in lat/lon and search term)
-  
-  Post user selected to save meeting location to DB
+Own App's RESTful APIs (from server to client via Ajax): Get user data from DB (isLoggedin, selected start and meeting locations), Get Yelp data via a POST request (to pass in lat/lon and search term), Post user selected to save meeting location to DB
 
 Technical things that are required to utilize:
 Use MongoDB & Node.js/Express to CRUD data.
