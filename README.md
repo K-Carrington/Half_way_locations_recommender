@@ -1,8 +1,27 @@
 # Half_way_locations_recommender
 GA WDI Project 3
 
-Halfway location meeting app for study groups, language exchange, dating sites, meetups, etc.
-This uses Node.js, Express, Google and Yelp APIs, Mongo/Mongoose, Ajax, EJS, Facebook Authentication, Passport, and JWT.
+Halfway location meeting app is for people who want to find an equidistant place to meet. I can be used for study groups, language exchange, dating, meetups, business meetings, etc. This app differs (from the 2 other halfway meeting apps that were found) by allowing users to log in, save/edit their start locations and save/delete selected meeting locations.
+This uses Node.js, Express, Google Maps and Yelp APIs, Mongo/Mongoose, Ajax, EJS, HTML, CSS, Bootstrap, Facebook Authentication API and Passport. It is designed mainly with an MVC framework.
+
+Team:
+All members worked with Node/Express, Mongo/Mongoose, HTML/CSS/Bootstrap and EJS.
+Additionally:
+Ken Carrington: Project lead - Google Maps API, Yelp JSON data and Ajax
+Eunice Chang: Facebook and Passport Authentication
+Nick Hendren: Yelp API
+
+RESTful APIs:
+User login:
+  Create, update and delete user
+Yelp:
+  Get (search for) data
+Google Maps:
+  Requested map and route
+Own App's RESTful APIs (from server to client):
+  Get user data from DB (isLogged in, selected start and meeting locations)
+  Get Yelp data via a POST request (to pass in lat/lon and search term)
+  Post user selected to save meeting location to DB
 
 Technical things that are required to utilize:
 Use MongoDB & Node.js/Express to CRUD data.
