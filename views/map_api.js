@@ -5,10 +5,7 @@
   var start_locations = [];
   var meeting_locations = [];
 
-  function createMarker(buttonId, latlng, label, html) {
-    console.log("Creating marker, button id = " + buttonId)
-    var contentString = '<b>'+label+'</b><br>'+html
-    +'<br><button class="btn btn-success btn-xs" id="'+buttonId+'">Save</button>';
+  function createMarker(latlng, label, contentString) {
     var marker = new google.maps.Marker({
         position: latlng,
         map: map,
@@ -19,14 +16,8 @@
     infowindow = new google.maps.InfoWindow();
 
     google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(contentString);
+      infowindow.setContent(label+contentString);
       infowindow.open(map,marker);
-    });
-
-    yelpMarkers.push(marker);
-
-    $('#'+buttonId).click(function() {
-      console.log(buttonId + ' clicked!')
     });
 
     return marker;
@@ -151,20 +142,53 @@
               for (var i = 0; i < data.length; i++) {
                 //console.log(data[i].location.coordinate.latitude)
                 //console.log(data[i].location.coordinate.longitude)
+
+                //display yelp data as markers on the map
                 var yelpPoint = new google.maps.LatLng(
                   data[i].location.coordinate.latitude,
                   data[i].location.coordinate.longitude);
 
-                var markerButtonId = 'loc-save-btn' + i;
+                contentString = '<br>'+data[i].location.display_address
+                  +'<br>'+'<img src="'+data[i].rating_img_url_small+'">'
+                  +'<br>'+data[i].display_phone+'<br>'
+                  +'<a href="'+data[i].mobile_url+'">Yelp</a>'
 
-                  marker = createMarker(
-                    markerButtonId, yelpPoint,
-                    data[i].name+'<br>'+data[i].location.display_address
-                    +'<br>'+'<img src="'+data[i].rating_img_url_small+'">'
-                    +'<br>'+data[i].display_phone,
-                    '<a href="'+data[i].mobile_url+'">Yelp</a>'
-                  );
-               }
+                save_loc = data[i].location.display_address;
+                save_name = data[i].name;
+
+                data[i].name = (i+1)+'. '+data[i].name;
+
+                marker = createMarker(yelpPoint, data[i].name, contentString);
+                yelpMarkers.push(marker);
+
+                //also display yelp data on side window
+                var buttonId = 'loc-save-btn' + i;
+                var saveButton = "";
+                if (userLoggedIn) {
+                  saveButton = '<br><button class="btn btn-success btn-xs" id="'
+                    +buttonId+'">Save to my Meeting Locations</button>';
+                }
+                $('#yelpResults'+i).html(data[i].name+contentString+saveButton);
+
+                // put yelp info (with button if logged in) in yelpResults div
+                if (userLoggedIn) {
+                  $('#'+buttonId).click({loc: save_loc, name: save_name}, function(event) {
+                    console.log(this.id + ' clicked! loc = ' + event.data.loc);
+                    $.ajax({
+                      url: 'api/add_loc',
+                      method: 'POST',
+                      data: {
+                        m_loc: event.data.loc,
+                        name: event.data.name
+                      },
+                      success: function(data){
+                        console.log('SUCCESS adding selected meeting loc to DB!')
+                      },
+                      dataType: 'json'
+                    });
+                  });
+                } //if (userLoggedIn)
+              } //for loop
             },
             dataType: 'json'
           });
