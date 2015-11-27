@@ -5,22 +5,36 @@ Halfway location meeting app is for people who want to find an equidistant place
 This uses Node.js, Express, Google Maps and Yelp APIs, Mongo/Mongoose, Ajax, EJS, HTML, CSS, Bootstrap, Facebook Authentication API and Passport. It is designed mainly with an MVC framework.
 
 Team:
+
 All members worked with Node/Express, Mongo/Mongoose, HTML/CSS/Bootstrap and EJS.
+
 Additionally:
+
 Ken Carrington: Project lead - Google Maps API, Yelp JSON data and Ajax
+
 Eunice Chang: Facebook and Passport Authentication
+
 Nick Hendren: Yelp API
 
 RESTful APIs:
+
 User login:
+
   Create, update and delete user
+  
 Yelp:
   Get (search for) data
+  
 Google Maps:
+
   Requested map and route
+  
 Own App's RESTful APIs (from server to client):
+
   Get user data from DB (isLogged in, selected start and meeting locations)
+  
   Get Yelp data via a POST request (to pass in lat/lon and search term)
+  
   Post user selected to save meeting location to DB
 
 Technical things that are required to utilize:
