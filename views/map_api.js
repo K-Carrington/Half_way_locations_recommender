@@ -38,7 +38,7 @@
       meeting_locations = data.meeting_locations;
       console.log(start_locations);
       console.log(meeting_locations);
-      //TBD get user login/location info
+      // get user login/location info
       if (userLoggedIn){
         $("#not-logged-in").hide();
         $("#logged-in").show();
@@ -54,7 +54,7 @@
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
     map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,  // TBD 4 if user not logged in (and skip calling Route)
+      zoom: 4,  // default
       center: {lat: 36.0219, lng: -95.4814}
     });
 
@@ -138,7 +138,8 @@
               term: place_of_interest //from UI
             },
             success: function(data){
-              console.log("Data returned from Yelp I/F:");
+              //console.log("Data returned from Yelp I/F:");
+              //console.log(data);
               for (var i = 0; i < data.length; i++) {
                 //console.log(data[i].location.coordinate.latitude)
                 //console.log(data[i].location.coordinate.longitude)
@@ -153,8 +154,11 @@
                   +'<br>'+data[i].display_phone+'<br>'
                   +'<a href="'+data[i].mobile_url+'">Yelp</a>'
 
-                save_loc = data[i].location.display_address;
-                save_name = data[i].name;
+                var save_loc = '';
+                for (var j=0; j<data[i].location.display_address.length; j++) {
+                  save_loc = save_loc+' '+data[i].location.display_address[j];
+                }
+                var save_name = data[i].name;
 
                 data[i].name = (i+1)+'. '+data[i].name;
 
@@ -178,6 +182,7 @@
                       url: 'api/add_loc',
                       method: 'POST',
                       data: {
+                        //message: "Saving user selected meeting location",
                         m_loc: event.data.loc,
                         name: event.data.name
                       },

@@ -92,8 +92,7 @@ app.post('/api/add_loc', function(req, res){
   if (user_id) {
     User.findById(user_id, function(err, user){
       if(err) res.send(err);
-      //TBD for some reason m_loc is not coming through to here???
-      console.log("In post add_loc, adding m_loc "+req.body.m_loc+" and name "+req.body.name)
+      console.log("In post add_loc, adding loc "+req.body.m_loc+" and name "+req.body.name)
       user.meeting_locations.push({location: req.body.m_loc, name: req.body.name});
       user.save(function(err){
         if (err) res.send(err);
