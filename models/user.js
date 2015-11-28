@@ -11,7 +11,8 @@ var userSchema = new mongoose.Schema({
     last_name: String,
     email: String,
     password: String,
-    defaultLocation: String
+    defaultLocation: String,
+    locName: String
   },
   facebook: {
     id: String,
