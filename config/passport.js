@@ -62,7 +62,7 @@ passport.use('local-login', new LocalStrategy({
 }, function(req, email, password, done){
   User.findOne({'local.email': email}, function(err, user) {
     if(err) throw err;
-    if(!user) return done(null, false, req.flash('loginMessage', "No User Found."));
+    if(!user) return done(null, false, req.flash('loginMessage', 'No User Found.'));
     if(!user.validPassword(password)) return done(null, false, req.flash('loginMessage', 'Wrong Password!'));
     return done(null, user);
   })
