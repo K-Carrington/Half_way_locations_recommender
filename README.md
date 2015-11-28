@@ -67,3 +67,6 @@ https://trello.com/b/mCIDqvBw/halfway-locations-recc
 WIREFRAMES
 
 ![alt text](http://i.imgur.com/xpB1eTS.png)
+
+Coding Style Guide:
+https://github.com/felixge/node-style-guide
