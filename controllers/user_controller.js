@@ -39,14 +39,14 @@ function update(req, res){
 
     user.save(function(err){
       if (err) res.send(err);
-      console.log("User updated");
+      console.log('User updated');
       res.redirect('/profile');
     });
   });
 }
 
 function destroy(req, res){
-  console.log("user being deleted:", req.user.local.email);
+  console.log('user being deleted:', req.user.local.email);
   User.findByIdAndRemove(req.user._id, function(err){
     if(err) res.send(err);
     console.log("User deleted");

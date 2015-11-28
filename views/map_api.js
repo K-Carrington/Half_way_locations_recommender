@@ -13,7 +13,7 @@ function halfwayMeetMap() {
   url: 'api/user',
   method: 'GET',
     success: function(data){
-      console.log("User data:");
+      console.log('User data:');
       console.log(data.loggedIn);
       userLoggedIn = data.loggedIn;
       start_locations = data.start_locations;
@@ -22,27 +22,28 @@ function halfwayMeetMap() {
       console.log(meeting_locations);
       // get user login/location info
       if (userLoggedIn){
-        $("#not-logged-in").hide();
-        $("#logged-in").show();
-        //TBD preload datalists
-        //$('#listid').text(start_locations[0].location)
-        //$('#listid').text(start_locations[0].location)
-        var dataList1 = $("#listid");
-        //var dataList2 = $("#listid2");
+        $('#not-logged-in').hide();
+        $('#logged-in').show();
+        // preload datalists
+        var dataList1 = $("#loc-list1");
+        var dataList2 = $("#loc-list2");
         dataList1.empty();
-        //dataList2.empty();
+        dataList2.empty();
         if(start_locations.length) {
           for(var i=0; i<start_locations.length; i++) {
-            var opt = $("<option></option>").attr("value", start_locations[i].location);
+            var opt = $('<option>').attr('value', start_locations[i].location);
+            
+            //var opt = $('<option value="'+start_locations[i].location+'" '+ 'label="'start_locations[i].location'">');
             //.attr("label", start_locations[i].location);
             dataList1.append(opt);
-            //dataList2.append(opt);
+            opt = $('<option>').attr('value', start_locations[i].location);
+            dataList2.append(opt);
           }
         }
-        console.log("user logged in");
+        console.log('user logged in');
       } else {
-        $("#not-logged-in").show();
-        $("#logged-in").hide();
+        $('#not-logged-in').show();
+        $('#logged-in').hide();
         console.log("user not logged in");
       }
     }
@@ -89,8 +90,6 @@ function displayRouteLocations(directionsService, directionsDisplay,
   directionsService.route({
     origin: start1,
     destination: start2,
-    //origin: document.getElementById('start').value,
-    //destination: document.getElementById('end').value,
     travelMode: google.maps.TravelMode.DRIVING
     }, function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
@@ -107,15 +106,8 @@ function displayRouteLocations(directionsService, directionsDisplay,
 }
 
 function displayMeetingLocations(leg, place_of_interest) {
-  console.log("calling findHalfWayPoint with leg = " + leg)
+
   var midPoint = findHalfWayPoint(leg);
-  //var marker = new google.maps.Marker({
-  //  position: midPoint,
-  //  title: miDist + ' miles'
-  //});
-  //marker.setMap(map);
-  //marker = createMarker(midPoint,"dist: "+miDist,"<a href=\"http://www.cnn.com\">CNN</a>");
-  //console.log(midPoint);
   //
   // Send api request to server yelp interface
   // Send: location and type(search term of request);
@@ -132,7 +124,7 @@ function displayMeetingLocations(leg, place_of_interest) {
     url: 'api/search',
     method: 'POST',
     data: {
-      ll: midPoint.lat() + ", " + midPoint.lng(),
+      ll: midPoint.lat() + ', ' + midPoint.lng(),
       term: place_of_interest //from UI
     },
     success: function(data){
@@ -160,7 +152,7 @@ function displayMeetingLocations(leg, place_of_interest) {
 
         //also display yelp data on the side window
         var buttonId = 'loc-save-btn' + i;
-        var saveButton = "";
+        var saveButton = '';
         if (userLoggedIn) {
           saveButton = '<br><button class="btn btn-success btn-xs" id="'
             +buttonId+'">Save to my Meeting Locations</button>';
@@ -200,7 +192,7 @@ function findHalfWayPoint(leg) {
   //(We are not allowing way points, so there's only one leg)
   var distance = leg.distance.value; //meters
   var totalTime = leg.duration.value; //seconds
-  console.log("DISTmeters:"+distance+", "+"DURseconds:"+totalTime);
+
   steps = leg.steps;
   for (var i = 0; i < steps.length; i++) {
     var nextSegment = steps[i].path;
@@ -214,33 +206,33 @@ function findHalfWayPoint(leg) {
   // Add a method to the PolyLine class(object constructor) to return
   // a google.maps.LatLng of a point at a given distance along the path
   // Returns null if the path is shorter than the specified distance
-  google.maps.Polyline.prototype.GetPointAtDistance = function(metres) {
+  google.maps.Polyline.prototype.GetPointAtDistance = function(meters) {
     // some awkward special cases
-    if (metres == 0) return this.getPath().getAt(0);
-    if (metres < 0) return null;
+    if (meters == 0) return this.getPath().getAt(0);
+    if (meters < 0) return null;
     if (this.getPath().getLength() < 2) return null;
     var dist=0;
     var olddist=0;
-    for (var i=1; (i < this.getPath().getLength() && dist < metres); i++) {
+    for (var i=1; (i < this.getPath().getLength() && dist < meters); i++) {
       olddist = dist;
       dist += google.maps.geometry.spherical.computeDistanceBetween(
         this.getPath().getAt(i),
         this.getPath().getAt(i-1)
       );
     }
-    if (dist < metres) {
+    if (dist < meters) {
       return null;
     }
     var p1= this.getPath().getAt(i-2);
     var p2= this.getPath().getAt(i-1);
-    var m = (metres-olddist)/(dist-olddist);
+    var m = (meters-olddist)/(dist-olddist);
     return new google.maps.LatLng( p1.lat() + (p2.lat()-p1.lat())*m, p1.lng() + (p2.lng()-p1.lng())*m);
   }
 
   //Compute half way
   var halfDist = distance / 2; //in meters
   var halfTime = totalTime / 2;
-  var miDist = 0.62137 * (halfDist / 1000.0);
+  var miDist = 0.62137 * (halfDist / 1000.0); //in miles if ever needed
   return polyline.GetPointAtDistance(halfDist);
 }
 
@@ -262,11 +254,11 @@ function createMarker(latlng, label, contentString) {
 }
 
 //button for side bar
-$( "body" ).on( "click", ".fa-bars", function () {
-    console.log('button clicked');
-  if ( $( ".form" ).hasClass( "showBar" ) ) {
-    $( ".form" ).removeClass( "showBar" );
+$('body').on('click', '.fa-bars', function() {
+  console.log('button clicked');
+  if ($('.form').hasClass('showBar')) {
+    $('.form').removeClass('showBar');
   } else {
-    $( ".form" ).addClass( "showBar" );
+    $('.form').addClass('showBar');
   }
 });
