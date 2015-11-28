@@ -24,6 +24,21 @@ function halfwayMeetMap() {
       if (userLoggedIn){
         $("#not-logged-in").hide();
         $("#logged-in").show();
+        //TBD preload datalists
+        //$('#listid').text(start_locations[0].location)
+        //$('#listid').text(start_locations[0].location)
+        var dataList1 = $("#listid");
+        //var dataList2 = $("#listid2");
+        dataList1.empty();
+        //dataList2.empty();
+        if(start_locations.length) {
+          for(var i=0; i<start_locations.length; i++) {
+            var opt = $("<option></option>").attr("value", start_locations[i].location);
+            //.attr("label", start_locations[i].location);
+            dataList1.append(opt);
+            //dataList2.append(opt);
+          }
+        }
         console.log("user logged in");
       } else {
         $("#not-logged-in").show();
@@ -64,7 +79,7 @@ function halfwayMeetMap() {
     }
     var place_of_interest = $('#placeOfInterest').val();
 
-    var tripLeg = displayRouteLocations(directionsService, directionsDisplay,
+    displayRouteLocations(directionsService, directionsDisplay,
       start_location1, start_location2, place_of_interest);
   });
 }
