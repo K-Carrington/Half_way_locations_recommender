@@ -13,7 +13,7 @@ function ret_user_id(){
 
 //changing into a string that can be stored as a cookie
 passport.serializeUser(function(user, done){
-  curr_user_id = user.id; //to be able to pass out for 
+  curr_user_id = user.id; //to be able to pass out for
   done(null, user.id);
 });
 
@@ -31,6 +31,7 @@ passport.use('local-signup', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   defaultLocationField: 'defaultLocation',
+  locNameField: 'locName',
   passReqToCallback: true
 }, function(req, email, password, done){
   User.findOne({'local.email': email}, function(err, user){
@@ -42,7 +43,8 @@ passport.use('local-signup', new LocalStrategy({
     newUser.local.last_name = req.body.last_name;
     newUser.local.email = req.body.email;
     newUser.local.defaultLocation = req.body.defaultLocation;
-    newUser.start_locations.push({location: req.body.defaultLocation, name: "home"});
+    newUser.local.locName = req.body.locName;
+    newUser.start_locations.push({location: req.body.defaultLocation, name: req.body.locName});
     newUser.local.password = newUser.generateHash(password);
 
     newUser.save(function(err){

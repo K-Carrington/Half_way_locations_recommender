@@ -39,6 +39,7 @@ userRouter.route('/locations')
   .get(function(req, res){
     res.render('locations', {user: req.user})
   })
+  .post(usersController.createLocation)
 
 userRouter.get( '/update', function( req, res ) {
   console.log("Yeah hooo!", req.body )
