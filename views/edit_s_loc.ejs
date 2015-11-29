@@ -1,0 +1,22 @@
+<div class="page-header">
+    <h1>Hey <%= user.local.first_name || user.facebook.first_name %>!</h1>
+</div>
+
+<div class="row">
+
+  <div class="col-sm-6">
+    <h3>Start Location Edit</h3>
+    <form action="/update_s_loc" method="post">
+      <div class="form-group">
+        <label>Location address, city/state or zipcode</label>
+        <input type="text" class="form-control" name="defaultLocation" placeholder="<%= user.start_locations[index].location%>">
+      </div>
+
+      <div class="form-group">
+        <label>Location Name</label>
+        <input type="text" class="form-control" name="locName" placeholder="<%= user.start_locations[index].name %>">
+      </div>
+
+      <button type="submit" class="btn btn-warning btn-lg">Save</button><br><br>
+  </div>
+</div>

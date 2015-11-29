@@ -21,47 +21,61 @@ userRouter.route('/signup')
   	successRedirect: '/profile',
   	failureRedirect: '/signup',
   	failureFlash: true
-  }))
+  }));
 
 userRouter.get('/profile', isLoggedIn, function(req, res) {
-	res.render('profile', {user: req.user})
-})
+	res.render('profile', {user: req.user});
+});
 
 userRouter.route('/profile/:email')
   .get(isLoggedIn, function(req, res) {
-    res.render('edit', {user: req.user})
+    res.render('edit', {user: req.user});
   })
   .put(usersController.update, function(req, res){
-    req.redirect('/profile')
-  })
+    console.log("Called controller update");
+    req.redirect('/profile');
+  });
+
+userRouter.get( '/update', function( req, res ) {
+  console.log("Yeah hooo!", req.body );
+  res.json( "It's in there");
+} );
+
+userRouter.post( '/update', usersController.update, function(req, res){
+    console.log("Called controller update2");
+    req.redirect('/profile');
+  });
+userRouter.get( '/destroy/:email', usersController.destroy);
 
 userRouter.route('/locations')
   .get(function(req, res){
-    res.render('locations', {user: req.user})
+    res.render('locations', {user: req.user});
   })
-  .post(usersController.createLocation)
+  .post(usersController.createLocation);
 
-userRouter.get( '/update', function( req, res ) {
-  console.log("Yeah hooo!", req.body )
-  res.json( "It's in there")
-} )
+//routes for edit and delete locations:
+userRouter.route('/edit_s_loc')
+  .get(function(req,res){
+    res.render('edit_s_loc', {user: req.user});
+  })
+//userRouter.route('delete_s_loc')
+//userRouter.route('delete_m_loc')
 
-userRouter.post( '/update', usersController.update)
-userRouter.get( '/destroy/:email', usersController.destroy)
+//userRouter.get( '/delete_m_loc/:index', usersController.delete_m_loc);
 
 //facebook routes
 userRouter.get('/auth/facebook', passport.authenticate('facebook', {
-	scope:['email']}))
+	scope:['email']}));
 
 userRouter.get('/auth/facebook/callback', passport.authenticate('facebook', {
 	successRedirect: '/profile',
 	failureRedirect: '/'
-}))
+}));
 
 userRouter.get('/logout', function(req, res) {
-	req.logout()
-	res.redirect('/')
-})
+	req.logout();
+	res.redirect('/');
+});
 
 function isLoggedIn(req, res, next) {
 	if(req.isAuthenticated()) return next();

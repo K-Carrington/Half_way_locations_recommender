@@ -11,13 +11,27 @@
   </div>
 
   <div class="col-sm-8">
-    <h3>Starting Locations <a href="#" class="btn btn-default btn-sm">Add</a></h3>
+    <h3>Starting Locations</h3>
+    <form action="/createLocation" method="post">
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" class="form-control" name="defaultLocation" placeholder="<%= 'zipcode, state/city or full addr' %>">
+      </div>
+
+      <div class="form-group">
+        <label>Location Name</label>
+        <input type="text" class="form-control" name="locName" placeholder="<%= 'name, e.g. work' %>">
+      </div>
+
+    <button type="submit" class="btn btn-warning btn-lg">Add</button><br><br>
+ 
     <p>
       <!-- Name: Location [Edit] -->
       <% for(var i = 0; i < user.start_locations.length; i++) {%>
         <strong><%= user.start_locations[i].name %>: </strong>
         <%= user.start_locations[i].location %>
-        <a href="/edit" class="btn btn-default btn-sm">Edit</a><br>
+        <a type="submit" href="/edit_s_loc" class="btn btn-default btn-sm">Edit</a>
+        <a type="submit" href="/delete_s_loc/<%i%>" class="btn btn-default btn-sm">Delete</a><br>
       <% } %>
     </p>
 
@@ -26,7 +40,8 @@
       <!-- Name: Location -->
       <% for(var i = 0; i < user.meeting_locations.length; i++) {%>
         <strong><%= user.meeting_locations[i].name %>: </strong>
-        <%= user.meeting_locations[i].location %><br>
+        <%= user.meeting_locations[i].location %>
+        <a type="submit" href="/delete_m_loc/<%=i%>" class="btn btn-default btn-sm">Delete</a><br>
       <% } %>
     </p>
   </div>
