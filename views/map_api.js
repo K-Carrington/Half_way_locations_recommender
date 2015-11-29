@@ -46,6 +46,9 @@ function halfwayMeetMap() {
         $('#logged-in').hide();
         console.log("user not logged in");
       }
+      for (var i=0; i<10; i++) {
+        $('#yelpResults'+i).hide();
+      }
     }
   });
 
@@ -55,6 +58,10 @@ function halfwayMeetMap() {
     zoom: 4,  // default
     center: {lat: 36.0219, lng: -105.4814}
   });
+  //See comments below regarding making this draggable
+  //var directionsDisplay = new google.maps.DirectionsRenderer({
+  //  draggable: true
+  //});
 
   polyline = new google.maps.Polyline({
     path: [],
@@ -64,12 +71,13 @@ function halfwayMeetMap() {
 
   directionsDisplay.setMap(map);
 
+  var start_location1;
+  var start_location2;
+  var place_of_interest;
   // trigger Display route, get halfway yelp results on button press
   //$('#map-search-form').on('submit', function(evt) {
   $('#mapSearchButton').click(function() {
     //evt.preventDefault();
-    var start_location1;
-    var start_location2;
     if (userLoggedIn) {
       start_location1 = $('#userLocationL').val();
       start_location2 = $('#friendLocationL').val();
@@ -78,11 +86,20 @@ function halfwayMeetMap() {
       start_location1 = $('#userLocationN').val();
       start_location2 = $('#friendLocationN').val();
     }
-    var place_of_interest = $('#placeOfInterest').val();
+    place_of_interest = $('#placeOfInterest').val();
 
     displayRouteLocations(directionsService, directionsDisplay,
       start_location1, start_location2, place_of_interest);
   });
+
+  //To update locations based on new directions:
+  //This was getting called to often triggering yelp too many requests errors
+  //also the drag worked, but it bounced back to the old locations
+  //(Also this may defeat the purpose of finding a halfway place...)
+  //directionsDisplay.addListener('directions_changed', function() {
+  //  displayRouteLocations(directionsService, directionsDisplay,
+  //    start_location1, start_location2, place_of_interest);
+  //});
 }
 
 function displayRouteLocations(directionsService, directionsDisplay,
@@ -95,7 +112,6 @@ function displayRouteLocations(directionsService, directionsDisplay,
       if (status === google.maps.DirectionsStatus.OK) {
         polyline.setPath([]);
         directionsDisplay.setDirections(response);
-        //directionsDisplay.setDraggable(true);
         var legs = response.routes[0].legs;
         displayMeetingLocations(legs[0], place_of_interest);
       } else {
@@ -158,6 +174,7 @@ function displayMeetingLocations(leg, place_of_interest) {
             +buttonId+'">Save to my Meeting Locations</button>';
         }
         $('#yelpResults'+i).html(data[i].name+contentString+saveButton);
+        $('#yelpResults'+i).show();
 
         // put yelp info (with button if logged in) in yelpResults div
         if (userLoggedIn) {
