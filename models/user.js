@@ -24,7 +24,7 @@ var userSchema = new mongoose.Schema({
     email: String
   },
   start_locations: [{location: String, name: String}],
-  meeting_locations: [{location: String, name: String}]
+  meeting_locations: [{location: String, name: String, yelp_url: String}]
   //friends: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 });
 

@@ -41,6 +41,7 @@
       <% for(var i = 0; i < user.meeting_locations.length; i++) {%>
         <strong><%= user.meeting_locations[i].name %>: </strong>
         <%= user.meeting_locations[i].location %>
+        <a href="<%= user.meeting_locations[i].yelp_url %>">Yelp</a>
         <a type="submit" href="/delete_m_loc/<%=i%>" class="btn btn-default btn-sm">Delete</a><br>
       <% } %>
     </p>

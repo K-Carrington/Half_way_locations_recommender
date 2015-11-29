@@ -178,15 +178,17 @@ function displayMeetingLocations(leg, place_of_interest) {
 
         // put yelp info (with button if logged in) in yelpResults div
         if (userLoggedIn) {
-          $('#'+buttonId).click({loc: save_loc, name: save_name}, function(event) {
-            console.log(this.id + ' clicked! loc = ' + event.data.loc);
+          $('#'+buttonId).click({loc: save_loc, name: save_name, yelp_url: data[i].mobile_url}, function(event) {
+            console.log(this.id + ' clicked! loc = ' + event.data.loc
+              + ", save_name = " + event.data.save_name + ", url = " + event.data.yelp_url);
             $.ajax({
               url: 'api/add_loc',
               method: 'POST',
               data: {
                 //message: "Saving user selected meeting location",
                 m_loc: event.data.loc,
-                name: event.data.name
+                name: event.data.name,
+                yelp_url: event.data.yelp_url
               },
               success: function(data){
                 console.log('SUCCESS adding selected meeting loc to DB!')
