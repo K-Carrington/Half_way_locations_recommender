@@ -1,7 +1,7 @@
 # Half_way_locations_recommender
 GA WDI Project 3
 
-Halfway location meeting app is for people who want to find an equidistant place to meet. I can be used for study groups, language exchange, dating, meetups, business meetings, etc. This app differs (from the 2 other halfway meeting apps that were found) by allowing users to log in, save/edit their start locations and save/delete selected meeting locations.
+Halfway location meeting app is for people who want to find an equidistant place to meet. It can be used for study groups, language exchange, dating, meetups, business meetings, etc. This app differs (from the 2 other halfway meeting apps that were found) by allowing users to log in, save/edit their start locations and save/delete selected meeting locations.
 This uses Node.js, Express, Google Maps and Yelp APIs, Mongo/Mongoose, Ajax, EJS, HTML, CSS, Bootstrap, Facebook Authentication API and Passport. It is designed mainly with an MVC framework.
 
 Team:
@@ -18,11 +18,11 @@ All members worked with Node/Express, Mongo/Mongoose, HTML/CSS/Bootstrap and EJS
 RESTful APIs:
 
 User login: Create, update and delete user
-  
+
 Yelp: Get (search for) data
-  
+
 Google Maps: Requested map and route
-  
+
 Own App's RESTful APIs (from server to client via Ajax): Get user data from DB (isLoggedin, selected start and meeting locations), Get Yelp data via a POST request (to pass in lat/lon and search term), Post user selected to save meeting location to DB
 
 Technical things that are required to utilize:
@@ -46,7 +46,7 @@ MVP
 5. As a user I want to receive up to 2 recommendations on possible meeting places with other user(s) that are approximately half way between our locations so that we don’t have to think about it too much.
 
 
-OVER AND ABOVE thenMVP (extra backlog to to later, or if time exists during project week)
+OVER AND ABOVE the MVP (extra backlog to to later, or if time exists during project week)
 1. As a user I want to be able to find more than 2 locations so that I have more choices.
 
 2. As a user I want to be able to select from the recommendations based on various criteria so that we find the ideal meeting spot.
