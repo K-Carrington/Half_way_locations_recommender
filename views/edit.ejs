@@ -11,34 +11,39 @@
   </div>
 
   <div class="col-sm-6">
-      <h3>Account Information</h3>
-      <form action="/update" method="post">
-        <div class="form-group">
-          <label>First</label>
-          <input type="text" class="form-control" name="first_name" placeholder="<%= user.local.first_name || user.facebook.first_name %>">
-        </div>
+    <h3>Account Information</h3>
+    <form action="/update" method="post">
+      <div class="form-group">
+        <label>First</label>
+        <input type="text" class="form-control" name="first_name" placeholder="<%= user.local.first_name || user.facebook.first_name %>">
+      </div>
 
-        <div class="form-group">
-          <label>Last</label>
-          <input type="text" class="form-control" name="last_name" placeholder="<%= user.local.last_name || user.facebook.last_name %>">
-        </div>
+      <div class="form-group">
+        <label>Last</label>
+        <input type="text" class="form-control" name="last_name" placeholder="<%= user.local.last_name || user.facebook.last_name %>">
+      </div>
 
-        <div class="form-group">
-          <label>Email</label>
-            <input type="text" class="form-control" name="email" placeholder="<%= user.local.email || user.facebook.email %>">
-        </div>
+      <div class="form-group">
+        <label>Email</label>
+          <input type="text" class="form-control" name="email" placeholder="<%= user.local.email || user.facebook.email %>">
+      </div>
 
-        <% if (user.facebook.id ) { %>
-          <div class="form-group" style="display: none;">
-              <label>Password</label>
-              <input type="password" class="form-control" name="password">
-          </div>
-        <% } else { %>
-          <div class="form-group">
-              <label>Password</label>
-              <input type="password" class="form-control" name="password">
-          </div>
-        <% } %>
+      <% if (user.facebook.id ) { %>
+        <div class="form-group" style="display: none;">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+      <% } else { %>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+      <% } %>
+
+      <div class="form-group">
+        <label>Default Start Location</label>
+        <input type="text" class="form-control" name="defaultLocation" placeholder="<%= user.start_locations[0].location%>">
+      </div>
 
         <div class="form-group">
           <label>Replace Default Start Location</label>
@@ -50,10 +55,11 @@
           <input type="text" class="form-control" name="locName" placeholder="<%= user.start_locations[0].name %>">
         </div>
 
-        <input type="hidden" name="id" value='<%=user._id%>'>
 
-        <button type="submit" class="btn btn-warning btn-lg">Save</button><br><br>
-        <button type="submit" class="btn btn-warning btn-lg"><a href="/destroy/<%=user.local.email%>">Delete Account</a></button>
+      <input type="hidden" name="id" value='<%=user._id%>'>
+
+      <button type="submit" class="btn btn-warning btn-lg">Save</button><br><br>
+      <button type="submit" class="btn btn-warning btn-lg"><a href="/destroy/<%=user.local.email%>">Delete Account</a></button>
 
     </div>
 </div>
