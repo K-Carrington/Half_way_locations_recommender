@@ -34,9 +34,9 @@ passport.use('local-signup', new LocalStrategy({
   locNameField: 'locName',
   passReqToCallback: true
 }, function(req, email, password, done){
-  User.findOne({'local.email': email}, function(err, user){
-    if(err) return done(err);
-    if(user) return done(null, false, req.flash('signUpMessage', 'That email is already taken.'));
+	User.findOne({'local.email': email}, function(err, user){
+		if(err) return done(err)
+		if(user) return done(null, false, req.flash('signupMessage','That email is already taken.'))
 
     var newUser = new User();
     newUser.local.first_name = req.body.first_name;

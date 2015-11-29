@@ -19,15 +19,16 @@
       <h3>Locally Stored User</h3>
     <%}%> -->
     <h3>Profile</h3>
-      <p>
-        <strong>First</strong>: <%= user.local.first_name || user.facebook.first_name %><br>
-        <strong>Last</strong>: <%= user.local.last_name || user.facebook.last_name %><br>
-        <strong>Email</strong>: <%= user.local.email || user.facebook.email || "None" %><br>
-        <strong>Default Location</strong>: <%=  user.local.defaultLocation %><br>
-        <!-- <strong>Locations</strong>:
-          <% for(var i = 0; i < user.start_locations.length; i++) {%>
-              <%= user.start_locations[i].name %>: <%= user.start_locations[i].location %>
-          <% } %> -->
-      </p>
+    <p>
+      <strong>First</strong>: <%= user.local.first_name || user.facebook.first_name %><br>
+      <strong>Last</strong>: <%= user.local.last_name || user.facebook.last_name %><br>
+      <strong>Email</strong>: <%= user.local.email || user.facebook.email || "None" %><br>
+      <strong>Default Location</strong>:
+      <% for(var i = 0; i < user.start_locations.length; i++) {%>
+        <%= user.start_locations[i].location %>
+        <%= user.start_locations[i].name %>
+      <% } %>
+      <br>
+    </p>
   </div>
 </div>
