@@ -31,7 +31,7 @@ userRouter.route('/profile/:email')
   .get(isLoggedIn, function(req, res) {
     res.render('edit', {user: req.user});
   })
-  .put(usersController.update, function(req, res){
+  .post(usersController.update, function(req, res){
     console.log("Called controller update");
     req.redirect('/profile');
   });
@@ -50,18 +50,29 @@ userRouter.get( '/destroy/:email', usersController.destroy);
 userRouter.route('/locations')
   .get(function(req, res){
     res.render('locations', {user: req.user});
-  })
-  .post(usersController.createLocation);
+  });
+
+//route for add start location (only)
+userRouter.post( '/createLocation', usersController.createLocation, function(req, res){
+    console.log("Called controller createLocation");
+    //req.redirect('/locations');
+  });
 
 //routes for edit and delete locations:
-userRouter.route('/edit_s_loc')
-  .get(function(req,res){
-    res.render('edit_s_loc', {user: req.user});
+userRouter.route('/edit_s_loc/:index')
+  .get(function(req, res){
+    res.render('edit_s_loc', {user: req.user, index: req.params.index });
   })
-//userRouter.route('delete_s_loc')
-//userRouter.route('delete_m_loc')
-
-//userRouter.get( '/delete_m_loc/:index', usersController.delete_m_loc);
+userRouter.post('/update_s_loc/:index', usersController.update_s_loc, function(req, res){
+    console.log("alled controller update_s_loc");
+    req.redirect('/locations');
+  });
+//  .put(usersController.update_s_loc, function(req, res){
+//    console.log("Called controller update_s_loc");
+//    req.redirect('/locations');
+//  });
+userRouter.get( '/delete_s_loc/:index', usersController.delete_s_loc);
+userRouter.get( '/delete_m_loc/:index', usersController.delete_m_loc);
 
 //facebook routes
 userRouter.get('/auth/facebook', passport.authenticate('facebook', {
