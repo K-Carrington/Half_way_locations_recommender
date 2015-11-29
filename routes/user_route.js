@@ -45,6 +45,7 @@ userRouter.post( '/update', usersController.update, function(req, res){
     console.log("Called controller update2");
     req.redirect('/profile');
   });
+
 userRouter.get( '/destroy/:email', usersController.destroy);
 
 userRouter.route('/locations')

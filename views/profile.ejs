@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <div class="page-header">
 
-<h1>Hey <%= user.local.first_name || user.facebook.first_name %>!</h1>
+    <h1>Hey <%= user.local.first_name || user.facebook.first_name %>!</h1>
+
+    <!-- <a href="/logout" class="btn btn-default btn-sm">Logout</a> -->
 
 </div>
 <div class="row">
@@ -11,6 +13,11 @@
     <a href="/profile/edit">Edit Account Information</a>
   </div>
   <div class="col-sm-6">
+    <!-- <% if(user.facebook.id) { %>
+      <h3>Facebook User</h3>
+    <% } else { %>
+      <h3>Locally Stored User</h3>
+    <%}%> -->
     <h3>Profile</h3>
     <p>
       <strong>First</strong>: <%= user.local.first_name || user.facebook.first_name %><br>
