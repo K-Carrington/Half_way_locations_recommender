@@ -1,10 +1,10 @@
 var User = require('../models/user.js');
 
 function createLocation(req, res){
-  console.log('User added starting location!')
+  console.log('User adding starting location')
   User.findById(req.body.id, function(err, user){
     if (err) res.send(err);
-    console.log("User adding location");
+    console.log("User pushing location");
     // pushes new location into array
     if(req.body.defaultLocation) {
       user.local.defaultLocation = req.body.defaultLocation;
@@ -45,6 +45,33 @@ function update(req, res){
   });
 }
 
+function update_s_loc(req, res){
+  console.log('saved loc being updated: ', req.body )
+  User.findById(req.body.id, function(err, user){
+    if(err) res.send(err);
+
+    console.log("YAY2", user);
+    console.log(req.body);
+    return;
+
+    // array.splice(index,1,new_item)
+    if(req.body.defaultLocation) {
+      user.local.defaultLocation = req.body.defaultLocation;
+      user.start_locations[0].location = req.body.defaultLocation;
+    }
+    if(req.body.locName){
+      user.local.locName = req.body.locName;
+      user.start_locations[0].name = req.body.locName;
+    }
+
+    user.save(function(err){
+      if (err) res.send(err);
+      console.log('Loc updated');
+      res.redirect('/locations');
+    });
+  });
+}
+
 function destroy(req, res){
   console.log('user being deleted:', req.user.local.email);
   User.findByIdAndRemove(req.user._id, function(err){
@@ -52,6 +79,26 @@ function destroy(req, res){
     console.log("User deleted");
     res.redirect('/');
   })
+}
+
+function delete_s_loc(req, res){
+  console.log('starting loc being deleted:', req.body);
+  //User.findByIdAndRemove(req.user._id, function(err){
+    //if(err) res.send(err);
+    //array.splice(index,1)
+    //console.log("meeting loc deleted");
+    ////res.redirect('/locations');
+  //})
+}
+
+function delete_m_loc(req, res){
+  console.log('meeting loc being deleted:', req.body);
+  //User.findByIdAndRemove(req.user._id, function(err){
+    //if(err) res.send(err);
+    //array.splice(index,1)
+    //console.log("meeting loc deleted");
+    ////res.redirect('/locations');
+  //})
 }
 
 module.exports = {
