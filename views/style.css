@@ -48,3 +48,6 @@ button[ type = submit ] {
 .btn-success {
   max-width: 90%;
 }
+.pre-scrollable{
+  max-height: 420px;
+}
