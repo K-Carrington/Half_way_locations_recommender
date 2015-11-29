@@ -1,15 +1,22 @@
 var User = require('../models/user.js');
 
 function createLocation(req, res){
-  console.log('User adding starting location')
+  console.log('User adding starting location, req.body:');
+  console.log(req.body);
   User.findById(req.body.id, function(err, user){
     if (err) res.send(err);
-    console.log("User pushing location");
+    //console.log("User pushing location, user:");
+    //console.log(user);
     // pushes new location into array
     if(req.body.defaultLocation) {
-      user.local.defaultLocation = req.body.defaultLocation;
-      user.local.locName = req.body.locName;
+      //user.local.defaultLocation = req.body.defaultLocation;
+      //user.local.locName = req.body.locName;
       user.start_locations.push({location: req.body.defaultLocation, name: req.body.locName})
+      user.save(function(err){
+        if (err) res.send(err);
+        console.log('User start location added!');
+        res.redirect('/locations');
+    });
     }
   })
 }
@@ -49,20 +56,20 @@ function update_s_loc(req, res){
   console.log('saved loc being updated: ', req.body )
   User.findById(req.body.id, function(err, user){
     if(err) res.send(err);
-
-    console.log("YAY2", user);
+    console.log("user: ")
+    console.log(user)
+    console.log("YAY2, req.body:");
     console.log(req.body);
-    return;
+    console.log("req.params:")
+    console.log(req.params);
+
+    var location = {
+      location: req.body.defaultLocation,
+      name: req.body.locName
+    }
 
     // array.splice(index,1,new_item)
-    if(req.body.defaultLocation) {
-      user.local.defaultLocation = req.body.defaultLocation;
-      user.start_locations[0].location = req.body.defaultLocation;
-    }
-    if(req.body.locName){
-      user.local.locName = req.body.locName;
-      user.start_locations[0].name = req.body.locName;
-    }
+    user.start_locations.splice(req.params.index,1, location);
 
     user.save(function(err){
       if (err) res.send(err);
@@ -82,27 +89,36 @@ function destroy(req, res){
 }
 
 function delete_s_loc(req, res){
-  console.log('starting loc being deleted:', req.body);
-  //User.findByIdAndRemove(req.user._id, function(err){
-    //if(err) res.send(err);
-    //array.splice(index,1)
-    //console.log("meeting loc deleted");
-    ////res.redirect('/locations');
-  //})
+  console.log('starting loc being deleted:');
+  //console.log(req.user.start_locations);
+  console.log('req.params.index:')
+  console.log(req.params.index)
+  req.user.start_locations.splice(req.params.index,1);
+  req.user.save(function(err){
+    if (err) res.send(err);
+    console.log('User start location deleted!');
+    res.redirect('/locations');
+  });
 }
 
 function delete_m_loc(req, res){
-  console.log('meeting loc being deleted:', req.body);
-  //User.findByIdAndRemove(req.user._id, function(err){
-    //if(err) res.send(err);
-    //array.splice(index,1)
-    //console.log("meeting loc deleted");
-    ////res.redirect('/locations');
-  //})
+  console.log('meeting loc being deleted:');
+  //console.log(req.user.meeting_locations);
+  console.log('req.params.index:')
+  console.log(req.params.index)
+  req.user.meeting_locations.splice(req.params.index,1);
+  req.user.save(function(err){
+    if (err) res.send(err);
+    console.log('User meeting location deleted!');
+    res.redirect('/locations');
+  });
 }
 
 module.exports = {
   update: update,
   destroy: destroy,
-  createLocation: createLocation
+  createLocation: createLocation,
+  update_s_loc: update_s_loc,
+  delete_m_loc: delete_m_loc,
+  delete_s_loc: delete_s_loc
 }

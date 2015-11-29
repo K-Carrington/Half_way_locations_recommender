@@ -11,7 +11,7 @@
   </div>
 
   <div class="col-sm-8">
-    <h3>Starting Locations</h3>
+    <h3>Add Starting Locations</h3>
     <form action="/createLocation" method="post">
       <div class="form-group">
         <label>Location</label>
@@ -23,6 +23,8 @@
         <input type="text" class="form-control" name="locName" placeholder="<%= 'name, e.g. work' %>">
       </div>
 
+      <input type="hidden" name="id" value='<%=user._id%>'>
+
     <button type="submit" class="btn btn-warning btn-lg">Add</button><br><br>
  
     <p>
@@ -30,8 +32,8 @@
       <% for(var i = 0; i < user.start_locations.length; i++) {%>
         <strong><%= user.start_locations[i].name %>: </strong>
         <%= user.start_locations[i].location %>
-        <a type="submit" href="/edit_s_loc" class="btn btn-default btn-sm">Edit</a>
-        <a type="submit" href="/delete_s_loc/<%i%>" class="btn btn-default btn-sm">Delete</a><br>
+        <a type="submit" href="/edit_s_loc/<%=i%>" class="btn btn-default btn-sm">Edit</a>
+        <a type="submit" href="/delete_s_loc/<%=i%>" class="btn btn-default btn-sm">Delete</a><br>
       <% } %>
     </p>
 
