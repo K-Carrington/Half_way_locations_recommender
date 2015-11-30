@@ -20,7 +20,7 @@ nav {
 .form {
   padding: 30px 10px 0 10px;
   width: 360px;
-  height: 86.5vh;
+  height: 91vh;
   position: absolute;
   right: 100%;
   transition: all ease .5s;
@@ -42,7 +42,7 @@ button[ type = submit ] {
   padding: 7px;
 }
 #map {
-  height: 86.5vh;
+  height: 91vh;
   width: 100vw;
 }
 .yelpResults {
