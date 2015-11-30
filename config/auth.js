@@ -5,8 +5,8 @@ module.exports = {
 
 		//for FB to send user back to here:
 		// Need to change config/auth.js, settings on FB site
-		'callbackURL': 'http://localhost:3000/auth/facebook/callback',
-		// 'callbackURL': 'http://halfwayhang.herokuapp.com/auth/facebook/callback',
+		// 'callbackURL': 'http://localhost:3000/auth/facebook/callback',
+		'callbackURL': 'http://halfwayhang.herokuapp.com',
 		'profileFields': ['emails', 'displayName', 'first_name', 'last_name', 'hometown']
  	}
 }
