@@ -36,12 +36,15 @@ function update(req, res){
 
     // start_locations[0] is users defaultLocation
     if(req.body.defaultLocation) {
+      var location = {
+        location: req.body.defaultLocation,
+        name: req.body.locName
+      }
       user.local.defaultLocation = req.body.defaultLocation;
-      user.start_locations[0].location = req.body.defaultLocation;
+      user.start_locations.splice(0,1, location);
     }
     if(req.body.locName){
       user.local.locName = req.body.locName;
-      user.start_locations[0].name = req.body.locName;
     }
 
     user.save(function(err){

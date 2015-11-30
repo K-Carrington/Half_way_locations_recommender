@@ -122,11 +122,20 @@ app.get('/api/user', function(req, res){
     User.findById(user_id, function(err, user){
       if(err) res.send(err);
       //console.log("3* Found user!")
-      data = {
-        loggedIn: app.locals.loggedIn,
-        start_locations: user.start_locations,
-        meeting_locations: user.meeting_locations
-      };
+      if (user) {
+        data = {
+            loggedIn: app.locals.loggedIn,
+            start_locations: user.start_locations,
+            meeting_locations: user.meeting_locations
+        };
+      }
+      else {
+        data = {
+          loggedIn: app.locals.loggedIn,
+          start_locations: [],
+          meeting_locations: []
+        };
+      }
       res.json(data);
     });
   }

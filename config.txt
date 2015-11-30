@@ -3,7 +3,7 @@
 # Passport for easy login (via FB or local)
 # JWT for DB security
 # Bcrypt for password security
-npm install yelp express-session cookie-parser connect-flash passport passport-facebook passport-local bcrypt-nodejs body-parser ejs express-ejs-layouts mongoose morgan passport --save
+npm install mongodb-uri yelp express-session cookie-parser connect-flash passport passport-facebook passport-local bcrypt-nodejs body-parser ejs express-ejs-layouts mongoose morgan passport --save
 
 # elsewhere
 mongod
