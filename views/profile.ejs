@@ -22,10 +22,7 @@
       <strong>First</strong>: <%= user.local.first_name || user.facebook.first_name %><br>
       <strong>Last</strong>: <%= user.local.last_name || user.facebook.last_name %><br>
       <strong>Email</strong>: <%= user.local.email || user.facebook.email || "None" %><br>
-      <% for(var i = 0; i < user.start_locations.length; i++) {%>
-        <strong><%= user.start_locations[i].name %>: </strong><%= user.start_locations[i].location %>
-
-      <% } %>
+      <strong><%= user.start_locations[0].name %>: </strong><%= user.start_locations[0].location %>
       <br>
     </p>
   </div>
