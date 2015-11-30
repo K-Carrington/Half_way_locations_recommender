@@ -53,20 +53,20 @@ function halfwayMeetMap() {
   });
 
   var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
+  //var directionsDisplay = new google.maps.DirectionsRenderer;
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 4,  // default
     center: {lat: 36.0219, lng: -105.4814}
   });
   //See comments below regarding making this draggable
-  //var directionsDisplay = new google.maps.DirectionsRenderer({
-  //  draggable: true
-  //});
+  var directionsDisplay = new google.maps.DirectionsRenderer({
+    draggable: true
+  });
 
   polyline = new google.maps.Polyline({
     path: [],
     strokeColor: '#FF0000',
-    strokeWeight: 3
+    strokeWeight: 1
   });
 
   directionsDisplay.setMap(map);
@@ -96,10 +96,13 @@ function halfwayMeetMap() {
   //This was getting called to often triggering yelp too many requests errors
   //also the drag worked, but it bounced back to the old locations
   //(Also this may defeat the purpose of finding a halfway place...)
-  //directionsDisplay.addListener('directions_changed', function() {
-  //  displayRouteLocations(directionsService, directionsDisplay,
-  //    start_location1, start_location2, place_of_interest);
-  //});
+  directionsDisplay.addListener('directions_changed', function() {
+    //console.log("in addListener, num routes: "
+    //  +directionsDisplay.directions.routes.length+", directions: ")
+    //console.log(directionsDisplay.directions);
+    var legs = directionsDisplay.directions.routes[0].legs;
+    displayMeetingLocations(legs[0], place_of_interest);
+  });
 }
 
 function displayRouteLocations(directionsService, directionsDisplay,
@@ -110,7 +113,8 @@ function displayRouteLocations(directionsService, directionsDisplay,
     travelMode: google.maps.TravelMode.DRIVING
     }, function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
-        polyline.setPath([]);
+        //console.log("num initial routes "+response.routes.length+", response:")
+        //console.log(response)
         directionsDisplay.setDirections(response);
         var legs = response.routes[0].legs;
         displayMeetingLocations(legs[0], place_of_interest);
@@ -122,7 +126,7 @@ function displayRouteLocations(directionsService, directionsDisplay,
 }
 
 function displayMeetingLocations(leg, place_of_interest) {
-
+  polyline.setPath([]); 
   var midPoint = findHalfWayPoint(leg);
   //
   // Send api request to server yelp interface
