@@ -22,7 +22,9 @@
       <strong>First</strong>: <%= user.local.first_name || user.facebook.first_name %><br>
       <strong>Last</strong>: <%= user.local.last_name || user.facebook.last_name %><br>
       <strong>Email</strong>: <%= user.local.email || user.facebook.email || "None" %><br>
-      <strong><%= user.start_locations[0].name %>: </strong><%= user.start_locations[0].location %>
+      <% if(user.start_locations.length > 0) {%>
+        <strong><%= user.start_locations[0].name %>: </strong><%= user.start_locations[0].location %>
+      <% } %>
       <br>
     </p>
   </div>
