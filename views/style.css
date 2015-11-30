@@ -37,9 +37,6 @@ h2 {
 .showBar {
   margin-right: -359px;
 }
-.btn, .form-control {
-  width: 97%;
-}
 
 input, button, select {
   margin-bottom: 15px;
