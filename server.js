@@ -18,7 +18,7 @@ var uriUtil        = require('mongodb-uri');
 // var db = 'mongodb://localhost/halfway_meet';
 //connect to mongolab
 // var db = 'mongodb://eunice:123456@ds057954.mongolab.com:57954/halfway_meet';
-var mongodbUri = 'mongodb://heroku_nphnjt1z:c3ftopuiohuun7tru9umhmgll@ds059804.mongolab.com:59804/heroku_nphnjt1z';
+var mongodbUri = 'mongodb://eunice:123456@ds057954.mongolab.com:57954/halfway_meet';
 var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 
 mongoose.connect(mongooseUri, function(err){
