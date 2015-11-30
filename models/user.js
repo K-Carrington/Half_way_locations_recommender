@@ -38,6 +38,5 @@ userSchema.methods.validPassword = function(password){
 }
 
 var User = mongoose.model('User', userSchema);
-//var Location  = mongoose.model('Location', locationSchema);
 
 module.exports = User;

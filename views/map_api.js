@@ -66,7 +66,7 @@ function halfwayMeetMap() {
   polyline = new google.maps.Polyline({
     path: [],
     strokeColor: '#FF0000',
-    strokeWeight: 3
+    strokeWeight: 1
   });
 
   directionsDisplay.setMap(map);
@@ -97,9 +97,11 @@ function halfwayMeetMap() {
   //also the drag worked, but it bounced back to the old locations
   //(Also this may defeat the purpose of finding a halfway place...)
   directionsDisplay.addListener('directions_changed', function() {
-    console.log(directionsDisplay.directions);
-        //var legs = response.routes[0].legs;
-        //displayMeetingLocations(legs[0], place_of_interest);
+    //console.log("in addListener, num routes: "
+    //  +directionsDisplay.directions.routes.length+", directions: ")
+    //console.log(directionsDisplay.directions);
+    var legs = directionsDisplay.directions.routes[0].legs;
+    displayMeetingLocations(legs[0], place_of_interest);
   });
 }
 
@@ -111,7 +113,8 @@ function displayRouteLocations(directionsService, directionsDisplay,
     travelMode: google.maps.TravelMode.DRIVING
     }, function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
-        polyline.setPath([]);
+        //console.log("num initial routes "+response.routes.length+", response:")
+        //console.log(response)
         directionsDisplay.setDirections(response);
         var legs = response.routes[0].legs;
         displayMeetingLocations(legs[0], place_of_interest);
@@ -123,7 +126,7 @@ function displayRouteLocations(directionsService, directionsDisplay,
 }
 
 function displayMeetingLocations(leg, place_of_interest) {
-
+  polyline.setPath([]); 
   var midPoint = findHalfWayPoint(leg);
   //
   // Send api request to server yelp interface
