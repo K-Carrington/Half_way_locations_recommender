@@ -1,57 +1,45 @@
-<!--
-  <nav>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <i class="fa fa-bars fa-2x"><--Click here</i>
-          <a href="/">Home</a>
-        </div>
-      </div>
+<div class="form showBar">
+  <div class="form-horizontal mapForm" id="map-search-form">
+    <div id="not-logged-in">
+      <input type="text" class="form-control" id="userLocationN" placeholder="Your Location">
+      <input type="text" class="form-control" id="friendLocationN" placeholder="Friend's Location">
     </div>
-  </nav> -->
+    <div id="logged-in">
+      <input type="text" class="form-control" id="userLocationL" placeholder="Enter Your Location/See Your Previous Locations" list="loc-list1">
+      <datalist id="loc-list1"> <!-- label and value should both be set to the same values
+        <option  label='loc1' value='loc1'>
+        <option  label='' value=''>
+        <option  label='' value=''>
+        <option  label='' value=''>
+        <option  label='label5' value='value5'> -->
 
-  <div class="form showBar">
-    <div class="form-horizontal mapForm" id="map-search-form">
-      <div id="not-logged-in">
-        <input type="text" class="form-control" id="userLocationN" placeholder="Your Location">
-        <input type="text" class="form-control" id="friendLocationN" placeholder="Friend's Location">
-      </div>
-      <div id="logged-in">
-        <input type="text" class="form-control" id="userLocationL" placeholder="Enter Your Location/See Your Previous Locations" list="loc-list1">
-        <datalist id="loc-list1"> <!-- label and value should both be set to the same values
-          <option  label='loc1' value='loc1'>
-          <option  label='' value=''>
-          <option  label='' value=''>
-          <option  label='' value=''>
-          <option  label='label5' value='value5'> -->
-
-        </datalist>
-        <input type="text" class="form-control" id="friendLocationL" list="loc-list2" placeholder="Associate's Location/See Previous Locations">
-        <datalist id="loc-list2"></datalist>
-      </div>
-      <select class="form-control" id="placeOfInterest">
-        <option value="" disabled selected hidden>Place of Interest</option>
-        <option>Coffee</option>
-        <option>Bar</option>
-        <option>Restaurant</option>
-        <option>Mall</option>
-        <option>Movie Theater</option>
-      </select>
-      <button class="btn btn-warning btn-lg" id="mapSearchButton">Submit</button>
+      </datalist>
+      <input type="text" class="form-control" id="friendLocationL" list="loc-list2" placeholder="Associate's Location/See Previous Locations">
+      <datalist id="loc-list2"></datalist>
     </div>
-  </br>
-    <div class="pre-scrollable">
-    <div class='yelpResults' id='yelpResults0'></div>
-    <div class='yelpResults' id='yelpResults1'></div>
-    <div class='yelpResults' id='yelpResults2'></div>
-    <div class='yelpResults' id='yelpResults3'></div>
-    <div class='yelpResults' id='yelpResults4'></div>
-    <div class='yelpResults' id='yelpResults5'></div>
-    <div class='yelpResults' id='yelpResults6'></div>
-    <div class='yelpResults' id='yelpResults7'></div>
-    <div class='yelpResults' id='yelpResults8'></div>
-    <div class='yelpResults' id='yelpResults9'></div>
-    </div>
+    <select class="form-control" id="placeOfInterest">
+      <option value="" disabled selected hidden>Place of Interest</option>
+      <option>Coffee</option>
+      <option>Bar</option>
+      <option>Restaurant</option>
+      <option>Mall</option>
+      <option>Movie Theater</option>
+    </select>
+    <button class="btn btn-warning btn-lg" id="mapSearchButton">Submit</button>
   </div>
+</br>
+  <div class="pre-scrollable">
+  <div class='yelpResults' id='yelpResults0'></div>
+  <div class='yelpResults' id='yelpResults1'></div>
+  <div class='yelpResults' id='yelpResults2'></div>
+  <div class='yelpResults' id='yelpResults3'></div>
+  <div class='yelpResults' id='yelpResults4'></div>
+  <div class='yelpResults' id='yelpResults5'></div>
+  <div class='yelpResults' id='yelpResults6'></div>
+  <div class='yelpResults' id='yelpResults7'></div>
+  <div class='yelpResults' id='yelpResults8'></div>
+  <div class='yelpResults' id='yelpResults9'></div>
+  </div>
+</div>
 
-  <div id="map"></div>
+<div id="map"></div>
