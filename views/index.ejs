@@ -1,50 +1,85 @@
 
 <section class="module parallax parallax-1">
   <div class="container" class="text-center col-md-8 col-md-offset-2">
-    <h1>Halfway Meet</h1>
+    <h1 id="module">Halfway Hang</h1>
   </div>
 </section>
 
 <section class="module content">
   <div class="container" class="text-center col-md-8 col-md-offset-2">
-    <p>A fast and easy way to find a meeting place with your friends or former enemies!</p>
+    <div class="row">
+      <div class="col-md-4">
+        <h2><i class="glyphicon glyphicon-search" aria-hidden="true"></i></h2>
+        <p>A fast and easy way to find meeting places with your friends!</p>
+      </div>
+      <div class="col-md-4">
+        <h2><i class="glyphicon glyphicon-road" aria-hidden="true"></i></h2>
+        <p>Discover new places and read reviews through Yelp. </p>
+      </div>
+      <div class="col-md-4">
+        <h2><i class="glyphicon glyphicon-plus" aria-hidden="true"></i></h2>
+        <p>Create an account to save start and meeting locations, or dive right in and use the app.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <section class="module parallax parallax-2">
   <div class="container">
-    <h1>Rise</h1>
-
+    <h1 id="module">Login</h1>
   </div>
 </section>
 
 <section class="module content">
   <div class="container">
-    <% if (!loggedIn) { %>
-      <p>Create an account to save start and meeting locations, or dive right in and use the app</p>
-      <h3>Login or Sign Up:</h3>
-      <a href="/login" class="btn btn-default">Local Login</a>
-      <a href="/signup" class="btn btn-default">Local Signup</a>
-      <hr>
-      <h4>Or Login With <a href="/auth/facebook" class="btn btn-primary">Facebook</a></h4>
-      <% } else { %>
-        <a href="/map">Click Here to Access the Map and Start Your Search!</a>
-      </br>
-      </br>
-        <a href="/profile">Click Here to Access Your Profile</a>
-      <% } %>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <% if (!loggedIn) { %>
+          <h3>Login or Sign Up:</h3>
+          <a href="/login" class="btn btn-default">Local Login</a>
+          <a href="/signup" class="btn btn-default">Local Signup</a>
+          <hr>
+          <h4>Or Login With <a href="/auth/facebook" class="btn btn-primary">Facebook</a></h4>
+        <% } else { %>
+          <a href="/map">Click Here to Access the Map and Start Your Search!</a>
+        </br>
+        </br>
+          <a href="/profile">Click Here to Access Your Profile</a>
+        <% } %>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="module parallax parallax-3">
   <div class="container">
-    <h1>Calm</h1>
+    <h1 id="module">Contact Us</h1>
   </div>
 </section>
 
 <section class="module content">
   <div class="container">
-    <h2>Lorem Ipsum Dolor</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+    <div class="row">
+      <div class="col-md-4">
+        <h3>JavaCrips</h3>
+        <hr>
+        <p>Ken Carrington</p>
+        <p>Nick Hendren</p>
+        <p>Eunice Chang</p>
+      </div>
+      <div class="col-md-4">
+        <h3>GitHub</h3>
+        <hr>
+        <p><a href="https://github.com/K-Carrington">https://github.com/K-Carrington</a></p>
+        <p><a href="https://github.com/nickhendren">https://github.com/nickhendren</a></p>
+        <p><a href="https://github.com/omgunis">https://github.com/omgunis</a></p>
+      </div>
+      <div class="col-md-4">
+        <h3>Project Repo</h3>
+        <hr>
+        <p><a href="https://github.com/K-Carrington/Half_way_locations_recommender">https://github.com/K-Carrington/Half_way_locations_recommender</a></p>
+      </div>
+    </div>
   </div>
 </section>

@@ -1,24 +1,27 @@
-<div class="page-header">
-    <h1>Hey <%= user.local.first_name || user.facebook.first_name %>!</h1>
-</div>
+<div class="container">
 
-<div class="row">
+  <div class="page-header">
+      <h1>Hey <%= user.local.first_name || user.facebook.first_name %>!</h1>
+  </div>
 
-  <div class="col-sm-6">
-    <h3>Start Location Edit</h3>
-    <form action="/update_s_loc/<%=index%>" method="post">
-      <div class="form-group">
-        <label>Location address, city/state or zipcode</label>
-        <input type="text" class="form-control" name="defaultLocation" value="<%= user.start_locations[index].location%>">
-      </div>
+  <div class="row">
 
-      <div class="form-group">
-        <label>Location Name</label>
-        <input type="text" class="form-control" name="locName" value="<%= user.start_locations[index].name %>">
-      </div>
+    <div class="col-sm-6">
+      <h3>Start Location Edit</h3>
+      <form action="/update_s_loc/<%=index%>" method="post">
+        <div class="form-group">
+          <label>Location address, city/state or zipcode</label>
+          <input type="text" class="form-control" name="defaultLocation" value="<%= user.start_locations[index].location%>">
+        </div>
 
-      <input type="hidden" name="id" value='<%=user._id%>'>
+        <div class="form-group">
+          <label>Location Name</label>
+          <input type="text" class="form-control" name="locName" value="<%= user.start_locations[index].name %>">
+        </div>
 
-      <button type="submit" class="btn btn-warning btn-lg">Save</button><br><br>
+        <input type="hidden" name="id" value='<%=user._id%>'>
+
+        <button type="submit" class="btn btn-warning btn-lg">Save</button><br><br>
+    </div>
   </div>
 </div>

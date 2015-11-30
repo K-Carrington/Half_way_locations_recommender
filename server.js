@@ -66,7 +66,7 @@ var userRoutes = require('./routes/user_route.js');
 //app.get('/map', function(req, res) {
 //  res.render('map')
 //})
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 //root route
 app.use('/', userRoutes);
