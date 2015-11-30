@@ -148,17 +148,11 @@ app.get('/api/user', function(req, res){
     res.json(data);
   }
 });
-app.post('/api/user', function(req, res){
-  //TBD
-  //if user is logged in
-  //Grab selected meeting location from req.body
-  //and push in user's meeting location array
-});
 
 //be able to access client assets
 app.use(express.static('views'));
 
-// shows map.html (seems to crash node more when logged in)
+// shows map.html
 app.get('/map', function(req, res){
   res.render('map_api')
 })
