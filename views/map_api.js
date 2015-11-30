@@ -53,7 +53,6 @@ function halfwayMeetMap() {
   });
 
   var directionsService = new google.maps.DirectionsService;
-  //var directionsDisplay = new google.maps.DirectionsRenderer;
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 4,  // default
     center: {lat: 36.0219, lng: -105.4814}
@@ -97,9 +96,6 @@ function halfwayMeetMap() {
   //also the drag worked, but it bounced back to the old locations
   //(Also this may defeat the purpose of finding a halfway place...)
   directionsDisplay.addListener('directions_changed', function() {
-    //console.log("in addListener, num routes: "
-    //  +directionsDisplay.directions.routes.length+", directions: ")
-    //console.log(directionsDisplay.directions);
     var legs = directionsDisplay.directions.routes[0].legs;
     displayMeetingLocations(legs[0], place_of_interest);
   });
@@ -113,8 +109,6 @@ function displayRouteLocations(directionsService, directionsDisplay,
     travelMode: google.maps.TravelMode.DRIVING
     }, function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
-        //console.log("num initial routes "+response.routes.length+", response:")
-        //console.log(response)
         directionsDisplay.setDirections(response);
         var legs = response.routes[0].legs;
         displayMeetingLocations(legs[0], place_of_interest);
@@ -223,7 +217,7 @@ function findHalfWayPoint(leg) {
       polyline.getPath().push(nextSegment[k]);
     }
   }
-  //polyline.setDraggable(true);
+
   polyline.setMap(map);
 
   // Add a method to the PolyLine class(object constructor) to return
@@ -261,10 +255,10 @@ function findHalfWayPoint(leg) {
 
 function createMarker(latlng, label, contentString) {
   var marker = new google.maps.Marker({
-      position: latlng,
-      map: map,
-      title: label,
-      zIndex: Math.round(latlng.lat()*-100000)<<5
+    position: latlng,
+    map: map,
+    title: label,
+    zIndex: Math.round(latlng.lat()*-100000)<<5
   });
   marker.myname = label;
   infowindow = new google.maps.InfoWindow();
