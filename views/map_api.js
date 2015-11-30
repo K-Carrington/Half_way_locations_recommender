@@ -53,15 +53,15 @@ function halfwayMeetMap() {
   });
 
   var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
+  //var directionsDisplay = new google.maps.DirectionsRenderer;
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 4,  // default
     center: {lat: 36.0219, lng: -105.4814}
   });
   //See comments below regarding making this draggable
-  //var directionsDisplay = new google.maps.DirectionsRenderer({
-  //  draggable: true
-  //});
+  var directionsDisplay = new google.maps.DirectionsRenderer({
+    draggable: true
+  });
 
   polyline = new google.maps.Polyline({
     path: [],
@@ -96,10 +96,11 @@ function halfwayMeetMap() {
   //This was getting called to often triggering yelp too many requests errors
   //also the drag worked, but it bounced back to the old locations
   //(Also this may defeat the purpose of finding a halfway place...)
-  //directionsDisplay.addListener('directions_changed', function() {
-  //  displayRouteLocations(directionsService, directionsDisplay,
-  //    start_location1, start_location2, place_of_interest);
-  //});
+  directionsDisplay.addListener('directions_changed', function() {
+    console.log(directionsDisplay.directions);
+        //var legs = response.routes[0].legs;
+        //displayMeetingLocations(legs[0], place_of_interest);
+  });
 }
 
 function displayRouteLocations(directionsService, directionsDisplay,
