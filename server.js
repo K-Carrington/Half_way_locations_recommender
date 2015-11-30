@@ -12,16 +12,23 @@ var	passport       = require('passport');
 var	passportConfig = require('./config/passport.js');
 var yelp           = require('./config/yelp.js');
 var port           = process.env.PORT || 3000;
-
+var uriUtil        = require('mongodb-uri');
 
 //connect to local database
-var db = 'mongodb://localhost/halfway_meet';
+// var db = 'mongodb://localhost/halfway_meet';
 //connect to mongolab
 // var db = 'mongodb://eunice:123456@ds057954.mongolab.com:57954/halfway_meet';
-mongoose.connect(db, function(err){
+var mongodbUri = 'mongodb://eunice:123456@ds057954.mongolab.com:57954/halfway_meet';
+var mongooseUri = uriUtil.formatMongoose(mongodbUri);
+
+mongoose.connect(mongooseUri, function(err){
   if(err) return console.log('Cannot connect to ' + db + ' database.');
   console.log('Connected to ' + db + ' database.');
 });
+
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
 
 //middleware
 app.use(logger('dev'));
