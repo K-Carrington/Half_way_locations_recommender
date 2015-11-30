@@ -32,7 +32,7 @@ function halfwayMeetMap() {
         if(start_locations.length) {
           for(var i=0; i<start_locations.length; i++) {
             var opt = $('<option>').attr('value', start_locations[i].location);
-            
+
             //var opt = $('<option value="'+start_locations[i].location+'" '+ 'label="'start_locations[i].location'">');
             //.attr("label", start_locations[i].location);
             dataList1.append(opt);
@@ -120,7 +120,7 @@ function displayRouteLocations(directionsService, directionsDisplay,
 }
 
 function displayMeetingLocations(leg, place_of_interest) {
-  polyline.setPath([]); 
+  polyline.setPath([]);
   var midPoint = findHalfWayPoint(leg);
   //
   // Send api request to server yelp interface

@@ -83,7 +83,6 @@ passport.use(new FacebookStrategy({
       var newUser = new User();
       newUser.facebook.id = profile.id;
       newUser.facebook.token = token;
-      // newUser.facebook.hometown = profile._json.hometown.name;
       newUser.facebook.name = profile.displayName;
       newUser.facebook.first_name = profile.name.givenName;
       newUser.facebook.last_name = profile.name.familyName;
