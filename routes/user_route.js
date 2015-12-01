@@ -48,7 +48,16 @@ userRouter.post( '/update', usersController.update, function(req, res){
 
 userRouter.get( '/destroy/:email', usersController.destroy);
 
-userRouter.route('/locations')
+userRouter.route('/map')
+  .get(function(req, res){
+    //console.log("rendering map_api, req = ")
+    if(req.isAuthenticated())
+      res.render('map_api', {user: req.user});
+    else
+      res.render('map_api', {user: null});
+  });
+
+  userRouter.route('/locations')
   .get(function(req, res){
     res.render('locations', {user: req.user});
   });

@@ -1,3 +1,18 @@
+
+    <!--store user data in a hidden lable -->    
+    <% if (user) {%>
+      <input type="hidden" id="userLoggedIn" value='true'>
+      <% var loc_string = ''; %>
+      <% for (var i=0; i<user.start_locations.length-1; i++) { %>
+        <% loc_string = loc_string + user.start_locations[i].location + "\n"; %>
+      <%}%>
+      <% loc_string = loc_string + user.start_locations[user.start_locations.length-1].location; %>
+      <input type="hidden" id="start_locations" value='<%=loc_string%>'>
+    <%}else{%>
+      <input type="hidden" id="userLoggedIn" value='false'>
+    <%}%>
+
+
 <div class="form showBar">
   <div class="form-horizontal mapForm" id="map-search-form">
     <div id="not-logged-in">
@@ -17,14 +32,17 @@
       <input type="text" class="form-control" id="friendLocationL" list="loc-list2" placeholder="Associate's Location/See Previous Locations">
       <datalist id="loc-list2"></datalist>
     </div>
-    <select class="form-control" id="placeOfInterest">
-      <option value="" disabled selected hidden>Place of Interest</option>
-      <option>Coffee</option>
-      <option>Bar</option>
-      <option>Restaurant</option>
-      <option>Mall</option>
-      <option>Movie Theater</option>
-    </select>
+
+    <input type="text" class="form-control" id="placeOfInterest" placeholder="Place of Interest" list="poi-list1">
+      <datalist id="poi-list1"> 
+        <option  label='Coffee' value='Coffee'>
+        <option  label='Bar' value='Bar'>
+        <option  label='Restaurant' value='Restaurant'>
+        <option  label='Mall' value='Mall'>
+        <option  label='Movie Theater' value='Movie Theater'>
+      </datalist>
+
+
     <button class="btn btn-warning btn-lg" id="mapSearchButton">Submit</button>
   </div>
 </br>
