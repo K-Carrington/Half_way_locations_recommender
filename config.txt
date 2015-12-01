@@ -12,3 +12,8 @@ mongod
 nodemon
 
 #Need to change config/auth.js, settings on FB site and server.js for heroku deploy
+
+#Keys:
+# Used Ken's Google API key(layout.ejs), Nick's Yelp key(yelp.js) and Eunice's Facebook key(auth.js)
+
+#Also used Eunice's Mongolab and Heroku accounts

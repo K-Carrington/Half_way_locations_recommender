@@ -3,12 +3,24 @@ var polyline = null;
 var yelpMarkers = [];
 var userLoggedIn = false;
 var start_locations = [];
-var meeting_locations = [];
 
 function halfwayMeetMap() {
   //See if user is logged in
   //If so get default start locations
   //Start out with zoomed out map of the US
+  console.log("user info:")
+  
+  var userIn = $('#userLoggedIn').val();
+  console.log('userIn =');
+  console.log(userIn)
+  if (userIn == 'true') {
+    userLoggedIn = true;
+  }
+  else {
+    userLoggedIn = false;
+  }
+  //need to get user info via route/ejs instead of ajax:
+  /*
   $.ajax({
   url: 'api/user',
   method: 'GET',
@@ -17,10 +29,9 @@ function halfwayMeetMap() {
       console.log(data.loggedIn);
       userLoggedIn = data.loggedIn;
       start_locations = data.start_locations;
-      meeting_locations = data.meeting_locations;
       console.log(start_locations);
-      console.log(meeting_locations);
       // get user login/location info
+      */
       if (userLoggedIn){
         $('#not-logged-in').hide();
         $('#logged-in').show();
@@ -29,17 +40,22 @@ function halfwayMeetMap() {
         var dataList2 = $("#loc-list2");
         dataList1.empty();
         dataList2.empty();
-        if(start_locations.length) {
-          for(var i=0; i<start_locations.length; i++) {
-            var opt = $('<option>').attr('value', start_locations[i].location);
 
-            //var opt = $('<option value="'+start_locations[i].location+'" '+ 'label="'start_locations[i].location'">');
-            //.attr("label", start_locations[i].location);
-            dataList1.append(opt);
-            opt = $('<option>').attr('value', start_locations[i].location);
-            dataList2.append(opt);
-          }
+        //this sends the object as one long string:
+        console.log($('#start_locations').val());
+        loc_str = $('#start_locations').val();
+        //split string
+        start_locations = loc_str.split("\n")
+        console.log("start loc len " + start_locations.length)
+       
+        for(var i=0; i<start_locations.length; i++) {
+          console.log("setting loc " + start_locations[i])
+          var opt = $('<option>').attr('value', start_locations[i]);
+          dataList1.append(opt);
+          opt = $('<option>').attr('value', start_locations[i]);
+          dataList2.append(opt);
         }
+      
         console.log('user logged in');
       } else {
         $('#not-logged-in').show();
@@ -49,8 +65,8 @@ function halfwayMeetMap() {
       for (var i=0; i<10; i++) {
         $('#yelpResults'+i).hide();
       }
-    }
-  });
+ /*   }
+  }); */
 
   var directionsService = new google.maps.DirectionsService;
   map = new google.maps.Map(document.getElementById('map'), {

@@ -113,6 +113,9 @@ app.post('/api/add_loc', function(req, res){
 });
 
 //User AJAX Routes:
+//TBD need to get rid of this and replace with route call 
+//  to pass user info to map_api
+/*
 app.get('/api/user', function(req, res){
   var User = require('./models/user.js');
   var data;
@@ -148,20 +151,18 @@ app.get('/api/user', function(req, res){
     res.json(data);
   }
 });
-app.post('/api/user', function(req, res){
-  //TBD
-  //if user is logged in
-  //Grab selected meeting location from req.body
-  //and push in user's meeting location array
-});
+*/
 
 //be able to access client assets
 app.use(express.static('views'));
 
-// shows map.html (seems to crash node more when logged in)
-app.get('/map', function(req, res){
-  res.render('map_api')
-})
+// shows map.html
+//app.get('/map', function(req, res){
+//  console.log('in server rendering map_api')
+  //TBD need to pass user info in this way instead of through ajax
+//  console.log(req)
+//  res.render('map_api')
+//})
 
 app.listen(port, function(){
   console.log('Server running on ' + port);
