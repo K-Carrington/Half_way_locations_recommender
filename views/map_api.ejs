@@ -1,6 +1,7 @@
 
     <!--store user data in a hidden lable -->    
     <% if (user) {%>
+      <input type="hidden" id="user-id" value='<%=user._id%>'>
       <input type="hidden" id="userLoggedIn" value='true'>
       <% var loc_string = ''; %>
       <% for (var i=0; i<user.start_locations.length-1; i++) { %>
@@ -41,7 +42,6 @@
         <option  label='Mall' value='Mall'>
         <option  label='Movie Theater' value='Movie Theater'>
       </datalist>
-
 
     <button class="btn btn-warning btn-lg" id="mapSearchButton">Submit</button>
   </div>

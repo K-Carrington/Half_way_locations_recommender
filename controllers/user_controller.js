@@ -55,6 +55,26 @@ function update(req, res){
   });
 }
 
+// this one is different in that it's routed from the non-ejs code
+function create_m_loc(req, res) {
+//Add a users selected meeting location to their record in the db 
+    //console.log(req.body)
+
+  User.findById(req.body.userId, function(err, user){
+    if(err) res.send(err);
+    console.log('In post add_loc, adding loc '+req.body.m_loc
+      +' and name '+req.body.name
+      +' and url '+req.body.yelp_url)
+    //console.log(user)
+    user.meeting_locations.push({location: req.body.m_loc, name: req.body.name,
+      yelp_url: req.body.yelp_url});
+    user.save(function(err){
+      if (err) res.send(err);
+      console.log('User meeting location added!!')
+    });
+  });
+}
+
 function update_s_loc(req, res){
   console.log('saved loc being updated: ', req.body )
   User.findById(req.body.id, function(err, user){
@@ -123,5 +143,6 @@ module.exports = {
   createLocation: createLocation,
   update_s_loc: update_s_loc,
   delete_m_loc: delete_m_loc,
-  delete_s_loc: delete_s_loc
+  delete_s_loc: delete_s_loc,
+  create_m_loc: create_m_loc
 }

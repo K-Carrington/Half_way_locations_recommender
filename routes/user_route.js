@@ -68,13 +68,19 @@ userRouter.post( '/createLocation', usersController.createLocation, function(req
     //req.redirect('/locations');
   });
 
+//route for create meeting location
+userRouter.post('/create_m_loc', usersController.create_m_loc, function(req, res){
+    console.log("added controller create_m_loc");
+    //req.redirect('/map_api', {user: null});
+  });
+
 //routes for edit and delete locations:
 userRouter.route('/edit_s_loc/:index')
   .get(function(req, res){
     res.render('edit_s_loc', {user: req.user, index: req.params.index });
   })
 userRouter.post('/update_s_loc/:index', usersController.update_s_loc, function(req, res){
-    console.log("alled controller update_s_loc");
+    console.log("added controller update_s_loc");
     req.redirect('/locations');
   });
 //  .put(usersController.update_s_loc, function(req, res){
