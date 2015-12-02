@@ -3,6 +3,7 @@ var polyline = null;
 var yelpMarkers = [];
 var userLoggedIn = false;
 var start_locations = [];
+var userId;
 
 function halfwayMeetMap() {
   //See if user is logged in
@@ -15,6 +16,7 @@ function halfwayMeetMap() {
   console.log(userIn)
   if (userIn == 'true') {
     userLoggedIn = true;
+    userId = $('#user-id').val()
   }
   else {
     userLoggedIn = false;
@@ -196,10 +198,11 @@ function displayMeetingLocations(leg, place_of_interest) {
             console.log(this.id + ' clicked! loc = ' + event.data.loc
               + ", save_name = " + event.data.save_name + ", url = " + event.data.yelp_url);
             $.ajax({
-              url: 'api/add_loc',
+              url: '/create_m_loc',
               method: 'POST',
               data: {
                 //message: "Saving user selected meeting location",
+                userId: userId,
                 m_loc: event.data.loc,
                 name: event.data.name,
                 yelp_url: event.data.yelp_url
