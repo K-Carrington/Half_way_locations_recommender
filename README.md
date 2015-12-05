@@ -25,8 +25,8 @@ Google Maps: Requested map and route
 
 Own App's RESTful APIs (from server to client via Ajax): Get user data from DB (isLoggedin, selected start and meeting locations), Get Yelp data via a POST request (to pass in lat/lon and search term), Post user selected to save meeting location to DB
 
-Technical things that are required to utilize:
-Use MongoDB & Node.js/Express to CRUD data.
+Technical utilization requirements of the assignment:
+Use MongoDB & NodeJS/ExpressJS to CRUD data.
 Produce a RESTful API that exposes Suggested meeting locations (via yelp).
 Consume its own API (using AJAX or EJS).
 Authenticate users using at least one OAuth provider (passport or bcrypt).
