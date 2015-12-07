@@ -45,7 +45,7 @@ Halfway location meeting app is for people who want to find an equidistant place
 * As a user I want to be able to change my start locations to wherever I want so that I can use the app anywhere.
 * As a user I want to receive up to 2 recommendations on possible meeting places with other user(s) that are approximately half way between our locations so that we don’t have to think about it too much.
 
-###OVER AND ABOVE the MVP (extra backlog to to later, or if time exists during project week)
+###OVER AND ABOVE the MVP
 * As a user I want to be able to find more than 2 locations so that I have more choices.
 * As a user I want to be able to select from the recommendations based on various criteria so that we find the ideal meeting spot.
 * As a user I want to be able to adjust the radius of the half way meeting area in order to increase or decrease possible meeting locations.
